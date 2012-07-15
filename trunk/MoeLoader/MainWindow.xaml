@@ -670,7 +670,7 @@
                                     </MenuItem>-->
                                         </ContextMenu>
                                     </ScrollViewer.ContextMenu>
-                                    <WrapPanel x:Name="imgPanel" Margin="20,0,20,0" />
+                                    <WrapPanel x:Name="imgPanel" Margin="20,0,45,0" />
                                 </ScrollViewer>
                                 <Button x:Name="btnPrev" ToolTip="上一页" IsEnabled="False" VerticalAlignment="Top" Click="btnPrev_Click" Style="{DynamicResource prestyle}">
                                     <Button.Background>

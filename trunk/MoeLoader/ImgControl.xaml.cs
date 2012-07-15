@@ -30,6 +30,7 @@ namespace MoeLoader
         private bool canRetry = false;
         private bool isRetrievingDetail = false, isDetailSucc = false;
         private bool imgLoaded = false;
+        private bool isChecked = false;
 
         private System.Net.HttpWebRequest req;
 
@@ -241,6 +242,9 @@ namespace MoeLoader
 
         private void chk_Checked(bool isChecked)
         {
+            //未改变
+            if (this.isChecked == isChecked) return;
+
             if (isChecked)
             {
                 selBorder.Opacity = 1;
@@ -252,6 +256,7 @@ namespace MoeLoader
                 selRec.Opacity = 0;
             }
 
+            this.isChecked = isChecked;
             if (checkedChanged != null)
                 checkedChanged(index, null);
         }
