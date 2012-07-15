@@ -36,7 +36,7 @@
                                 <RowDefinition Height="20"/>
                                 <RowDefinition Height="20"/>
                             </Grid.RowDefinitions>
-                            <Border x:Name="back" Margin="0" BorderBrush="#CCB5B5B5" BorderThickness="1" Grid.RowSpan="2" Grid.ColumnSpan="2" CornerRadius="2" Background="#7FE8E8E8"/>
+                            <Border x:Name="back" Margin="0" BorderBrush="#CCB5B5B5" BorderThickness="0" Grid.RowSpan="2" Grid.ColumnSpan="2" CornerRadius="2" Background="#7FE8E8E8"/>
                             <ProgressBar Margin="3,3,3,3" Width="Auto" Height="Auto" Grid.Row="1" Grid.Column="1" Value="{Binding Progress}" Style="{DynamicResource ResourceKey=SimpleProgressBar}"/>
                             <TextBlock TextWrapping="NoWrap" Grid.Row="1" Grid.Column="1" Text="{Binding Speed}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <TextBlock TextWrapping="NoWrap" Grid.Row="1" Text="{Binding Size}" Margin="5,0,0,0"/>
@@ -63,7 +63,7 @@
                     <DropShadowEffect BlurRadius="20" Color="White" ShadowDepth="0"/>
             </TextBlock.Effect>-->
 		</TextBlock>
-        <Border CornerRadius="3,0,0,3" BorderBrush="#4C000000" BorderThickness="1,1,0,1" Background="#7FE6E6E6"/>
+        <Border CornerRadius="3,0,0,3" BorderBrush="#4C000000" BorderThickness="0" Background="#7FE6E6E6"/>
         <ListBox ContextMenuOpening="menu_ContextMenuOpening" x:Name="dlList" Background="{x:Null}" Margin="0" Style="{DynamicResource ListBoxStyle1}" BorderBrush="{x:Null}" ItemContainerStyle="{DynamicResource ListBoxItemStyle1}" ItemsSource="{Binding DownloadItems}" SelectionMode="Extended">
             <ListBox.ContextMenu>
                 <ContextMenu x:Name="menu">
@@ -98,10 +98,10 @@
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>
-        <Border Margin="2,0,0,2" VerticalAlignment="Bottom" Height="20" Background="#CCFFFFFF" BorderBrush="Black" BorderThickness="0" CornerRadius="3,0,0,3">
+        <Border Margin="0" VerticalAlignment="Bottom" Height="20" Background="#CCFFFFFF" BorderBrush="Black" BorderThickness="0" CornerRadius="0">
             <TextBlock x:Name="downloadStatus" HorizontalAlignment="Left" Text="asdfasdfasdfasdf" TextWrapping="Wrap" Margin="3,1,0,0" Foreground="Black" d:LayoutOverrides="Height"/>
         </Border>
-        <Border x:Name="adB" Visibility="Hidden" HorizontalAlignment="Stretch" Margin="0,0,0,22" Padding="0" VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="#FF5B94EF" Background="Transparent" CornerRadius="3,0,0,0">
+        <Border x:Name="adB" Visibility="Hidden" HorizontalAlignment="Stretch" Margin="0,0,0,20" Padding="0" VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="#FF5B94EF" Background="Transparent" CornerRadius="3,0,0,0">
             <Grid>
                 <Image x:Name="imgAd" Margin="1,0,0,0" MouseDown="TextBlock_MouseDown" Cursor="Hand" Opacity="0.8" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="100" Stretch="None"/>
                 <Grid Margin="0,2,2,0" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="#02FFFFFF" ToolTip="关闭" HorizontalAlignment="Right" VerticalAlignment="Top">

@@ -1039,8 +1039,8 @@ namespace MoeLoader
         {
             if (toggleDownload.IsChecked.Value)
             {
-                imgBorder.BorderThickness = new Thickness(0, 1, 1, 1);
-                imgBorder.CornerRadius = new CornerRadius(0, 3, 3, 0);
+                //imgBorder.BorderThickness = new Thickness(0, 1, 1, 1);
+                //imgBorder.CornerRadius = new CornerRadius(0, 3, 3, 0);
               
                 toggleDownload.ToolTip = "隐藏下载面板";
                 System.Windows.Media.Animation.Storyboard sb = FindResource("showDownload") as System.Windows.Media.Animation.Storyboard;
@@ -1071,8 +1071,8 @@ namespace MoeLoader
                     //sb1.Begin();
                 //}
 
-                imgBorder.BorderThickness = new Thickness(0, 1, 0, 1);
-                imgBorder.CornerRadius = new CornerRadius(0, 0, 0, 0);
+                //imgBorder.BorderThickness = new Thickness(0, 1, 0, 1);
+                //imgBorder.CornerRadius = new CornerRadius(0, 0, 0, 0);
 
                 toggleDownload.ToolTip = "显示下载面板(按住Ctrl隐藏缩略图)";
                 System.Windows.Media.Animation.Storyboard sb = FindResource("closeDownload") as System.Windows.Media.Animation.Storyboard;
