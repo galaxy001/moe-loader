@@ -239,9 +239,9 @@
         </Style>
 
         <Storyboard x:Key="logoRotate" RepeatBehavior="Forever">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
-                <SplineDoubleKeyFrame KeyTime="00:00:01" Value="-360"/>
-            </DoubleAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetName="bgLoading" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                <SplineThicknessKeyFrame KeyTime="00:00:3" Value="1920,71,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="showDownload">
             <ThicknessAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="imgBorder" Storyboard.TargetProperty="(FrameworkElement.Margin)">
@@ -762,18 +762,18 @@
                     </Grid>
                 </Grid>
                  <Grid x:Name="logoGrd" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Height="60">
-                    <Image x:Name="image" Width="120" Height="60" Stretch="None" Margin="10,10,0,0" HorizontalAlignment="Left" RenderTransformOrigin="0.50,0.50" Source="Images/logo1.png">
-                        <Image.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Image.RenderTransform>
-                    </Image>
+                    <Image x:Name="image" Width="120" Height="60" Stretch="None" Margin="10,10,0,0" HorizontalAlignment="Left" RenderTransformOrigin="0.50,0.50" Source="Images/logo1.png" />
                     <Image Source="Images/logo3.png" Width="160" Height="60" Margin="110,10,0,0" HorizontalAlignment="Left"/>
                 </Grid>
+                <Border x:Name="bgLoading" Visibility="Hidden" Margin="-300,71,0,0" Width="300" Height="3" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Border.Background>
+                        <LinearGradientBrush Opacity ="1" StartPoint ="0,0.5" EndPoint ="1,0.5">
+                            <GradientStop Color ="#00FFFFFF" Offset ="0"/>
+                            <GradientStop Color ="#FF3585e4" Offset ="0.5"/>
+                            <GradientStop Color ="#00FFFFFF" Offset ="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
             </Grid>
             <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,9,150,0" >
                 <TextBlock x:Name="txtSetting" Text="设置" Margin="0" FontSize="11" TextDecorations="Underline" Style="{StaticResource glowT}" MouseDown="TextBlock_MouseDown1" Cursor="Hand"/>

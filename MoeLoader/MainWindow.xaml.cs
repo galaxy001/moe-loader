@@ -555,12 +555,12 @@ namespace MoeLoader
                     break;
             }
 
-            string logoPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\logo.png";
-            if (System.IO.File.Exists(logoPath))
-            {
-                image.Source = new BitmapImage(new Uri(logoPath, UriKind.Absolute));
-            }
-            else image.Source = new BitmapImage(new Uri("Images/logo1.png", UriKind.Relative));
+            //string logoPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\logo.png";
+            //if (System.IO.File.Exists(logoPath))
+            //{
+                //image.Source = new BitmapImage(new Uri(logoPath, UriKind.Absolute));
+            //}
+            //else image.Source = new BitmapImage(new Uri("Images/logo1.png", UriKind.Relative));
         }
 
         private void UpdatePreNextEnable()
@@ -593,6 +593,7 @@ namespace MoeLoader
                 isGetting = false;
                 imgGet.Source = new BitmapImage(new Uri("/Images/search.png", UriKind.Relative));
                 logo.Stop();
+                bgLoading.Visibility = System.Windows.Visibility.Hidden;
                 //itmThunder.IsEnabled = false;
                 //itmLst.IsEnabled = false;
 
@@ -803,6 +804,7 @@ namespace MoeLoader
                 //btnPrev.Content = "上一页 (" + (realPage - 1) + ")";
                 pageText.Text = "当前页码 " + realPage;
 
+                bgLoading.Visibility = System.Windows.Visibility.Visible;
                 logo.Begin();
 
                 //nowSelectedIndex = comboBoxIndex;
@@ -889,6 +891,7 @@ namespace MoeLoader
                     isGetting = false;
                     imgGet.Source = new BitmapImage(new Uri("/Images/search.png", UriKind.Relative));
                     logo.Stop();
+                    bgLoading.Visibility = System.Windows.Visibility.Hidden;
                 }
             }
         }
@@ -971,6 +974,7 @@ namespace MoeLoader
         void DocumentCompleted()
         {
             logo.Stop();
+            bgLoading.Visibility = System.Windows.Visibility.Hidden;
             UpdatePreNextEnable();
             System.Windows.Media.Animation.Storyboard sb = FindResource("sbShowPageBtn") as System.Windows.Media.Animation.Storyboard;
             sb.Begin();
