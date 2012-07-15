@@ -1,0 +1,222 @@
+﻿<Application
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            x:Class="MoeLoader.App"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+    	<ResourceDictionary>		
+    		<ResourceDictionary.MergedDictionaries>
+    			<ResourceDictionary Source="Simple Styles.xaml"/>
+    		</ResourceDictionary.MergedDictionaries>
+            
+            <!-- Context Menu Style -->
+			<Style TargetType="{x:Type ContextMenu}">
+			  <Setter Property="SnapsToDevicePixels" Value="True"/>
+			  <Setter Property="OverridesDefaultStyle" Value="True"/>
+			  <Setter Property="Grid.IsSharedSizeScope" Value="true"/>
+			  <Setter Property="HasDropShadow" Value="True"/>
+			  <Setter Property="Template">
+			    <Setter.Value>
+			      <ControlTemplate TargetType="{x:Type ContextMenu}">
+                        <Grid>
+                        <Border Background="#FFF" BorderBrush="#888" BorderThickness="1" Margin="10" CornerRadius="0">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#01000000" BlurRadius="10" ShadowDepth="2"/>
+                                    </Border.Effect>
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" Margin="3"/>
+                                </Border>
+                        </Grid>
+			        <!--<ControlTemplate.Triggers>
+			          <Trigger Property="HasDropShadow" Value="true">
+			            <Setter TargetName="Border" Property="Padding" Value="0,3,0,3"/>
+			            <Setter TargetName="Border" Property="CornerRadius" Value="4"/>
+			          </Trigger>
+			        </ControlTemplate.Triggers>-->
+			      </ControlTemplate>
+			    </Setter.Value>
+			  </Setter>
+			</Style>
+    		<!--定义按钮样式-->
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Background" Value="#443585e4"/>
+                <Setter Property="BorderBrush" Value="#3585e4" />
+                <!--修改模板属性-->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <!--控件模板-->
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <!--背景色-->
+                            <Border x:Name="back" Opacity="0.8" CornerRadius="0" BorderThickness="1" BorderBrush="{TemplateBinding Property=BorderBrush}" Background="{TemplateBinding Property=Background}">
+                                <!--按钮内容-->
+                                <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}" />
+                            </Border>
+                            <!--触发器-->
+                            <ControlTemplate.Triggers>
+                                <!--鼠标移入移出-->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <!--DoubleAnimation To="20" Duration="0:0:0.2" Storyboard.TargetName="back" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" /-->
+                                                <ColorAnimation To="#AAFFFFFF" BeginTime="0:0:0" Duration="0:0:0.3" Storyboard.TargetName="back" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <!--DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="back" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" /-->
+                                                <ColorAnimation Duration="0:0:0.5" Storyboard.TargetName="back" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                                <!--按钮按下弹起-->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" TargetName="back" Value="#BB3585E4"/>
+                                </Trigger>
+                                <!--按钮失效-->
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Background" TargetName="back" Value="#22000000"/>
+									<Setter Property="BorderBrush" TargetName="back" Value="#55000000"/>
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}" x:Key="glowT">
+                <Setter Property="Foreground" Value="Black"/>
+                <!--<Setter Property="Opacity" Value="0.8"/>-->
+                <!--修改模板属性-->
+                <!--<Setter Property="BitmapEffect">
+                    <Setter.Value>
+                        <OuterGlowBitmapEffect GlowColor="White" GlowSize="10" Opacity="0.5"/>
+                    </Setter.Value>
+                </Setter>-->
+                <!--<Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="White" Opacity="0.9" ShadowDepth="0" BlurRadius="20"/>
+                    </Setter.Value>
+                </Setter>-->
+            </Style>
+            
+            <Style TargetType="{x:Type ScrollViewer}">
+                <!--修改模板属性-->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                            <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <!--<Rectangle x:Name="Corner" Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Column="1" Grid.Row="1"/>-->
+                                <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Grid.Column="0" Grid.Row="0" CanContentScroll="{TemplateBinding CanContentScroll}" />
+                                <ScrollBar x:Name="PART_VerticalScrollBar" Cursor="Arrow" Style="{DynamicResource ScrollBarStyle1}" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Grid.Column="1" Grid.Row="0" AutomationProperties.AutomationId="VerticalScrollBar" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}" MouseDown="PART_VerticalScrollBar_MouseDown_1" />
+                                <ScrollBar x:Name="PART_HorizontalScrollBar" Cursor="Arrow" Style="{DynamicResource ScrollBarStyle2}" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Grid.Column="0" Grid.Row="1" AutomationProperties.AutomationId="HorizontalScrollBar" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" Orientation="Horizontal" ViewportSize="{TemplateBinding ViewportWidth}" MouseDown="PART_HorizontalScrollBar_MouseDown_1"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+    		<Style x:Key="ScrollBarStyle1" TargetType="{x:Type ScrollBar}">
+    			<Setter Property="Template">
+    				<Setter.Value>
+    					<ControlTemplate TargetType="{x:Type ScrollBar}">
+    						<Grid SnapsToDevicePixels="true">
+    							<Grid.RowDefinitions>
+    								<RowDefinition Height="*"/>
+    							</Grid.RowDefinitions>
+    							<Rectangle Margin="0,0,0,0" Width="10" Fill="#99CCCCCC" Stroke="{x:Null}"/>
+    							<Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Margin="0,0,0,0">
+    								<Track.Thumb>
+    									<Thumb>
+    										<Thumb.Style>
+    											<Style TargetType="{x:Type Thumb}">
+    												<Setter Property="OverridesDefaultStyle" Value="true"/>
+    												<Setter Property="IsTabStop" Value="false"/>
+    												<Setter Property="Template">
+    													<Setter.Value>
+    														<ControlTemplate TargetType="{x:Type Thumb}">
+    															<Grid>
+                                                                    <Rectangle Stroke="{x:Null}" RadiusX="4" RadiusY="4" HorizontalAlignment="Stretch" Margin="0,0,0,0" x:Name="rectangle" Width="12" Fill="#FF808080"/>
+    															</Grid>
+    															<ControlTemplate.Triggers>
+    																<Trigger Property="IsMouseOver" Value="True">
+    																	<Setter Property="Fill" TargetName="rectangle" Value="#FF2993d1"/>
+    																</Trigger>
+    																<Trigger Property="IsDragging" Value="True">
+                                                                        <Setter Property="Fill" TargetName="rectangle" Value="#FF45c5ee"/>
+    																</Trigger>
+    															</ControlTemplate.Triggers>
+    														</ControlTemplate>
+    													</Setter.Value>
+    												</Setter>
+    											</Style>
+    										</Thumb.Style>
+    									</Thumb>
+    								</Track.Thumb>
+    							</Track>
+    						</Grid>
+    					</ControlTemplate>
+    				</Setter.Value>
+    			</Setter>
+    			<Setter Property="Margin" Value="1"/>
+    		</Style>
+
+            <Style x:Key="ScrollBarStyle2" TargetType="{x:Type ScrollBar}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ScrollBar}">
+                            <Grid SnapsToDevicePixels="true">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Margin="0,0,0,0" Height="10" Fill="#99CCCCCC" Stroke="{x:Null}"/>
+                                <Track x:Name="PART_Track" Grid.Column="0" IsDirectionReversed="false" Margin="0,0,0,0">
+                                    <Track.Thumb>
+                                        <Thumb>
+                                            <Thumb.Style>
+                                                <Style TargetType="{x:Type Thumb}">
+                                                    <Setter Property="OverridesDefaultStyle" Value="true"/>
+                                                    <Setter Property="IsTabStop" Value="false"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Thumb}">
+                                                                <Grid>
+                                                                    <Rectangle Stroke="{x:Null}" RadiusX="4" RadiusY="4" VerticalAlignment="Stretch" Margin="0,0,0,0" x:Name="rectangle" Height="12" Fill="#FF808080"/>
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Fill" TargetName="rectangle" Value="#FF2993d1"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsDragging" Value="True">
+                                                                        <Setter Property="Fill" TargetName="rectangle" Value="#FF45c5ee"/>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Thumb.Style>
+                                        </Thumb>
+                                    </Track.Thumb>
+                                </Track>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Margin" Value="1"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
