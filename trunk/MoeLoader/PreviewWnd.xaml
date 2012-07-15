@@ -1,0 +1,104 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Class="MoeLoader.PreviewWnd"
+	x:Name="Window"
+	Title="MoeLoader - Preview"
+	Width="640" Height="480" WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded" Closed="Window_Closed" mc:Ignorable="d" Icon="m.ico">
+
+    <Window.Resources>
+	<Storyboard x:Key="imgShow">
+		<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Opacity)">
+                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                <SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="1"/>
+		</DoubleAnimationUsingKeyFrames>
+	</Storyboard>
+	<!--<Storyboard x:Key="imgClose">
+		<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.Opacity)">
+			<SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="0"/>
+		</DoubleAnimationUsingKeyFrames>
+	</Storyboard>-->
+	<Style TargetType="Image">
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="Stretch" Value="None"/>
+		<Setter Property="Margin" Value="20,20,20,20"/>
+	</Style>
+    	<Style TargetType="{x:Type ToggleButton}" BasedOn="{x:Null}">
+		<Setter Property="Margin" Value="5"/>
+		<Setter Property="FocusVisualStyle" Value="{DynamicResource SimpleButtonFocusVisual}"/>
+		<Setter Property="Background" Value="{DynamicResource NormalBrush}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource NormalBorderBrush}"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type ToggleButton}">
+				<Grid x:Name="Grid">
+						<Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Padding="{TemplateBinding Padding}" CornerRadius="3"/>
+					
+						<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsKeyboardFocused" Value="true">
+							<Setter Property="BorderBrush" Value="{DynamicResource DefaultedBorderBrush}" TargetName="Border"/>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="true">
+							<Setter Property="Background" Value="{DynamicResource MouseOverBrush}" TargetName="Border"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="true">
+							<Setter Property="Background" Value="{DynamicResource PressedBrush}" TargetName="Border"/>
+							<Setter Property="BorderBrush" Value="{DynamicResource PressedBorderBrush}" TargetName="Border"/>
+						</Trigger>
+						<Trigger Property="IsChecked" Value="true">
+							<Setter Property="Background" Value="{DynamicResource PressedBrush}" TargetName="Border"/>
+							<Setter Property="BorderBrush" Value="{DynamicResource PressedBorderBrush}" TargetName="Border"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="true"/>
+						<Trigger Property="IsEnabled" Value="false">
+							<Setter Property="Background" Value="{DynamicResource DisabledBackgroundBrush}" TargetName="Border"/>
+							<Setter Property="BorderBrush" Value="{DynamicResource DisabledBorderBrush}" TargetName="Border"/>
+							<Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+    </Window.Resources>
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--<Border Margin="0" BorderBrush="#7F969696" BorderThickness="1" Grid.RowSpan="2" Background="#7FFFFFFF" CornerRadius="4"/>-->
+        <Grid x:Name="imgGrid" Margin="0" Grid.Row="1" Background="#01FFFFFF">
+            <Grid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="保存(_S)" Click="Button_Click_1" ToolTip="保存预览图至下载文件夹"/>
+                    <MenuItem Header="复制(_C)" Click="MenuItem_Click" ToolTip="复制预览图至剪贴板"/>
+                    <MenuItem Header="复制原图地址(_O)" Click="MenuItem_Click_2" ToolTip="复制原图地址至剪贴板"/>
+                    <MenuItem Header="复制预览图地址(_P)" Click="MenuItem_Click_1" ToolTip="复制预览图地址至剪贴板"/>
+                    <MenuItem Header="复制来源地址(_R)" Click="MenuItem_Click_3" ToolTip="复制来源地址至剪贴板"/>
+                </ContextMenu>
+            </Grid.ContextMenu>
+        </Grid>
+        <Button HorizontalAlignment="Left" Width="90" Grid.Row="1" VerticalAlignment="Top" Height="28" Margin="10,8,0,0" Click="Button_Click" ToolTip="关闭该预览图并选中该图">
+            <AccessText Text="选中并关闭(_A)"/>
+        </Button>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Grid.Row="1" Height="28" Margin="110,8,0,0" Click="Button1_Click" ToolTip="关闭该预览图">
+    		<AccessText Text="关闭(_C)"/>
+    	</Button>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Grid.Row="1" Height="28" Margin="220,8,0,0" Click="Button_Click_2" ToolTip="鼠标中键点击图片以缩放">
+            <AccessText Text="缩放(_Z)"/>
+        </Button>
+        <!--<Button x:Name="btnSave" HorizontalAlignment="Left" Width="90" Grid.Row="1" VerticalAlignment="Top" Height="28" Margin="10,8,0,0" Click="Button_Click_1" ToolTip="保存预览图至下载文件夹">
+            <AccessText Text="保存(_S)"/>
+        </Button>-->
+        <Border x:Name="brdDesc" Margin="0,0,15,15" BorderBrush="#CC4B4B4B" BorderThickness="1,1,1,1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#80FFFFFF" CornerRadius="5" Width="350" MouseEnter="Border_MouseEnter_1" MouseLeave="Border_MouseLeave_1">
+            <TextBlock x:Name="desc" Text="" TextWrapping="Wrap" Margin="5" LineHeight="6"/>
+        </Border>
+        <Border Margin="0" BorderBrush="#99000000" BorderThickness="0,0,0,1">
+            <StackPanel x:Name="btns" Orientation="Horizontal" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="1"/>
+        </Border>
+    </Grid>
+</Window>
