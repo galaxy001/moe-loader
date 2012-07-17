@@ -50,10 +50,10 @@
             </DoubleAnimationUsingKeyFrames>
 		</Storyboard>
         <Storyboard x:Key="sbBorderMag">
-            <ThicknessAnimation Storyboard.TargetName ="magBtn" Storyboard.TargetProperty ="BorderThickness" To ="1" Duration ="0:0:0.1"/>
+            <ColorAnimation Storyboard.TargetName ="magBtn" Storyboard.TargetProperty="BorderBrush.Color" To="#FFc0c0c0" Duration="0:0:0.1"/>
         </Storyboard>
         <Storyboard x:Key="sbBorderDown">
-            <ThicknessAnimation Storyboard.TargetName ="downBtn" Storyboard.TargetProperty ="BorderThickness" To ="1" Duration ="0:0:0.1"/>
+            <ColorAnimation Storyboard.TargetName ="downBtn" Storyboard.TargetProperty="BorderBrush.Color" To="#FFc0c0c0" Duration="0:0:0.1"/>
         </Storyboard>
 		<Storyboard x:Key="imgLoaded">
 			<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="preview" Storyboard.TargetProperty="(UIElement.Opacity)">
@@ -128,20 +128,20 @@
                 <TextBlock x:Name="score" Text="0" FontSize="14" TextWrapping="NoWrap" Foreground="#FF009CC2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" FontFamily="Arial"/>
             </Border>
             <TextBlock x:Name="txtDesc" Text="" Margin="0,0,0,25" Padding="7,2,7,2" d:LayoutOverrides="Height" Background="#8FFFFFFF" TextTrimming="CharacterEllipsis" Opacity="0"/>
-            <Border x:Name="magBtn" BorderThickness="0" Margin="0,0,40,5" Width="32" Height="32" HorizontalAlignment="Right" VerticalAlignment="Bottom" ToolTip="查看预览图" Opacity="0" BorderBrush="LightGray">
+            <Border x:Name="magBtn" BorderThickness="1" Margin="0,0,40,5" Width="32" Height="32" HorizontalAlignment="Right" VerticalAlignment="Bottom" ToolTip="查看预览图" Opacity="0" BorderBrush="#00c0c0c0">
                 <Border.Triggers>
                     <EventTrigger RoutedEvent="Mouse.MouseEnter">
-                        <BeginStoryboard x:Name="sbEnterMag" Storyboard="{StaticResource sbBorderMag}"/>
+                        <BeginStoryboard x:Name="sbEnterMag" Storyboard="{StaticResource sbBorderMag}" />
                     </EventTrigger>
                     <EventTrigger RoutedEvent="Mouse.MouseLeave">
                         <StopStoryboard BeginStoryboardName="sbEnterMag" />
                     </EventTrigger>
                 </Border.Triggers>
         		<Border.Background>
-        			<ImageBrush ImageSource="Images/mag.png"/>
+        			<ImageBrush ImageSource="Images/mag.png" />
         		</Border.Background>
         	</Border>
-        	<Border x:Name="downBtn" BorderThickness="0" Margin="0,0,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="32" Height="32" ToolTip="加入下载队列" Opacity="0" BorderBrush="LightGray">
+            <Border x:Name="downBtn" BorderThickness="1" Margin="0,0,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="32" Height="32" ToolTip="加入下载队列" Opacity="0" BorderBrush="#00c0c0c0">
                 <Border.Triggers>
                     <EventTrigger RoutedEvent="Mouse.MouseEnter">
                         <BeginStoryboard x:Name="sbEnterDown" Storyboard="{StaticResource sbBorderDown}" />
