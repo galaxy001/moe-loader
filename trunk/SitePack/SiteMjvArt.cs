@@ -23,6 +23,10 @@ namespace SitePack
 
         //public override System.Drawing.Point LargeImgSize { get { return new System.Drawing.Point(150, 150); } }
         //public override System.Drawing.Point SmallImgSize { get { return new System.Drawing.Point(150, 150); } }
+        private string[] user = { "mjvuser1" };
+        private string[] pass = { "mjvpass" };
+        private string sessionId;
+        private Random rand = new Random();
 
         /// <summary>
         /// mjv-art.org site
@@ -33,11 +37,14 @@ namespace SitePack
 
         public override string GetPageString(int page, int count, string keyWord, System.Net.IWebProxy proxy)
         {
+            Login(proxy);
+
             //http://mjv-art.org/pictures/view_posts/0?lang=en
             string url = SiteUrl + "/pictures/view_posts/" + (page - 1) + "?lang=en";
 
             MyWebClient web = new MyWebClient();
             web.Proxy = proxy;
+            web.Headers["Cookie"] = sessionId;
             web.Encoding = Encoding.UTF8;
 
             if (keyWord.Length > 0)
@@ -100,6 +107,7 @@ namespace SitePack
             System.Net.HttpWebRequest req = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
             req.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
             req.Proxy = proxy;
+            req.Headers["Cookie"] = sessionId;
             req.Timeout = 8000;
             req.Method = "POST";
 
@@ -197,6 +205,49 @@ namespace SitePack
             });
 
             return img;
+        }
+
+        private void Login(System.Net.IWebProxy proxy)
+        {
+            if (sessionId != null) return;
+            try
+            {
+                int index = rand.Next(0, user.Length);
+                //http://mjv-art.org/login/submit
+                System.Net.HttpWebRequest req = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(SiteUrl + "/login/submit");
+                req.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
+                req.Proxy = proxy;
+                req.Timeout = 8000;
+                req.Method = "POST";
+                req.AllowAutoRedirect = false;
+
+                byte[] buf = Encoding.UTF8.GetBytes("login=" + user[index] + "&password=" + pass[index]);
+                req.ContentType = "application/x-www-form-urlencoded";
+                req.ContentLength = buf.Length;
+                System.IO.Stream str = req.GetRequestStream();
+                str.Write(buf, 0, buf.Length);
+                str.Close();
+                System.Net.WebResponse rsp = req.GetResponse();
+
+                sessionId = rsp.Headers.Get("Set-Cookie");
+                //sitelang=en; Max-Age=31104000; Path=/; expires=Sun, 14-Jul-2013 04:15:44 GMT, asian_server=86227259c6ca143cca28b4ffffa1347e73405154e374afaf48434505985a4cca70fd30c4; expires=Tue, 19-Jan-2038 03:14:07 GMT; Path=/
+                if (sessionId == null || !sessionId.Contains("asian_server"))
+                {
+                    throw new Exception("自动登录失败");
+                }
+                //sitelang=en; asian_server=86227259c6ca143cca28b4ffffa1347e73405154e374afaf48434505985a4cca70fd30c4
+                int idIndex = sessionId.IndexOf("sitelang");
+                string idstr = sessionId.Substring(idIndex, sessionId.IndexOf(';', idIndex) + 2 - idIndex);
+                idIndex = sessionId.IndexOf("asian_server");
+                string hashstr = sessionId.Substring(idIndex, sessionId.IndexOf(';', idIndex) - idIndex);
+                sessionId = idstr + hashstr;
+                rsp.Close();
+            }
+            catch (System.Net.WebException)
+            {
+                //throw new Exception("自动登录失败");
+                sessionId = "";
+            }
         }
     }
 }
