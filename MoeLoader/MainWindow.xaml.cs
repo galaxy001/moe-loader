@@ -710,10 +710,23 @@ namespace MoeLoader
         /// <param name="e"></param>
         void img_checkedChanged(object sender, EventArgs e)
         {
+            int preid = selected.Count == 0 ? -1 : selected[selected.Count - 1];
+
             int id = (int)sender;
             if (selected.Contains(id))
                 selected.Remove(id);
             else selected.Add(id);
+
+            if (IsShiftDown())
+            {
+                //批量选择
+                for (int i = preid + 1; i < id; i++)
+                {
+                    bool enabled = (imgPanel.Children[i] as ImgControl).SetChecked(true);
+                    if (enabled && !selected.Contains(i))
+                        selected.Add(i);
+                }
+            }
 
             if (selected.Count > 0) ShowOrHideFuncBtn(false);
             else ShowOrHideFuncBtn(true);
@@ -1287,6 +1300,12 @@ namespace MoeLoader
                 return true;
             else return false;
         }
+        private static bool IsShiftDown()
+        {
+            if (IsKeyDown(System.Windows.Forms.Keys.LShiftKey) || IsKeyDown(System.Windows.Forms.Keys.RShiftKey))
+                return true;
+            else return false;
+        }
         #endregion
 
         /// <summary>
@@ -1303,7 +1322,7 @@ namespace MoeLoader
                 previewFrm = new PreviewWnd(this);
                 previewFrm.Show();
                 this.Focus();
-                System.GC.Collect();
+                //System.GC.Collect();
             }
             previewFrm.AddPreview(imgs[index], index, SiteManager.Instance.Sites[nowSelectedIndex].Referer);
             System.Media.SystemSounds.Exclamation.Play();
