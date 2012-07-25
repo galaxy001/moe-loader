@@ -42,7 +42,7 @@ namespace MoeLoader
         private int page = 1, realPage = 1, lastPage = 1;
 
         //private Color backColor;
-        internal bool isAero = true;
+        //internal bool isAero = true;
 
         private int numOfLoading = 5;
 
@@ -245,7 +245,7 @@ namespace MoeLoader
         {
             logo = FindResource("logoRotate") as System.Windows.Media.Animation.Storyboard;
 
-            //GlassHelper.EnableBlurBehindWindow(containerB, this);
+            GlassHelper.EnableBlurBehindWindow(containerB, this);
             (new System.Threading.Thread(new System.Threading.ThreadStart(LoadBgImg))).Start();
 
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(CheckVersion));
@@ -398,9 +398,9 @@ namespace MoeLoader
                         //itmJpg.IsChecked = parts[0].Equals("1");
                         addressType = (AddressType)Enum.Parse(typeof(AddressType), parts[0]);
 
-                        if (parts[1] == "0")
+                        if (parts[1] == "1")
                         {
-                            isAero = false;
+                            GlassHelper.noBlur = false;
                         }
 
                         if (parts.Length > 2)
@@ -1033,7 +1033,7 @@ namespace MoeLoader
 
                     string text = downloadC.NumOnce + "\r\n"
                         + (DownloadControl.SaveLocation == System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ? "." : DownloadControl.SaveLocation)
-                        + "\r\n" + addressType + ";" + (isAero ? "1" : "0")
+                        + "\r\n" + addressType + ";" + (GlassHelper.noBlur ? "0" : "1")
                         + ";" + numOfLoading + ";" + (itmMaskViewed.IsChecked ? "1" : "0") + ";" + words + ";" + Proxy + ";" + BossKey + ";" + (itmSmallPre.IsChecked ? "1" : "0") + ";"
                         + ProxyType + ";" + new Size(ActualWidth, ActualHeight) + ";" + (togglePram.IsChecked.Value ? "1" : "0") + ";" + PreFetcher.CachedImgCount + ";" 
                         + (downloadC.IsSepSave ? "1" : "0") + ";" + (itmxExplicit.IsChecked ? "1" : "0") + ";" + namePatter+ ";" + num + ";" + bgSt + ";" + bgHe + ";" + bgVe + ";" + bgOp + "\r\n";
@@ -1935,7 +1935,7 @@ namespace MoeLoader
                 //WS_CAPTION 0x00C00000L
                 GlassHelper.SetWindowLong(Hwnd, -16, nStyle);
             }
-            //GlassHelper.EnableBlurBehindWindow(containerB, this);
+            GlassHelper.EnableBlurBehindWindow(containerB, this);
         }
 
         private void Window_Activated_1(object sender, EventArgs e)
@@ -1961,7 +1961,7 @@ namespace MoeLoader
             Rectangle sw = this.Template.FindName("shadowW", this) as Rectangle;
             sw.Height = cp.ActualHeight + 3;
 
-            //GlassHelper.EnableBlurBehindWindow(containerB, this);
+            GlassHelper.EnableBlurBehindWindow(containerB, this);
         }
     }
 }
