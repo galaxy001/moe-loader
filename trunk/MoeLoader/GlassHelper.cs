@@ -48,82 +48,82 @@ namespace MoeLoader
         //public const int WINDOWPOSCHANGED = 0x0047;
 
         #region DWM_BLUR
-        //enum DWM_BB
-        //{
-        //    Enable = 1,
-        //    BlurRegion = 2,
-        //    TransitionMaximized = 4
-        //}
+        enum DWM_BB
+        {
+            Enable = 1,
+            BlurRegion = 2,
+            TransitionMaximized = 4
+        }
 
-        //[StructLayout(LayoutKind.Sequential)]
-        //struct DWM_BLURBEHIND
-        //{
-        //    public DWM_BB dwFlags;
-        //    public bool fEnable;
-        //    public IntPtr hRgnBlur;
-        //    public bool fTransitionOnMaximized;
-        //}
+        [StructLayout(LayoutKind.Sequential)]
+        struct DWM_BLURBEHIND
+        {
+            public DWM_BB dwFlags;
+            public bool fEnable;
+            public IntPtr hRgnBlur;
+            public bool fTransitionOnMaximized;
+        }
 
-        //[DllImport("dwmapi.dll", PreserveSig = false)]
-        //public static extern bool DwmIsCompositionEnabled();
+        [DllImport("dwmapi.dll", PreserveSig = false)]
+        private static extern bool DwmIsCompositionEnabled();
 
-        //[DllImport("DwmApi.dll")]
-        //static extern void DwmEnableBlurBehindWindow(IntPtr hwnd, ref DWM_BLURBEHIND blurBehind);
+        [DllImport("DwmApi.dll")]
+        private static extern void DwmEnableBlurBehindWindow(IntPtr hwnd, ref DWM_BLURBEHIND blurBehind);
 
-        //[DllImport("gdi32.dll")]
-        //static extern IntPtr CreateRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr CreateRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect);
 
-        //[DllImport("gdi32.dll")]
-        //static extern bool DeleteObject(IntPtr hObject);
+        [DllImport("gdi32.dll")]
+        private static extern bool DeleteObject(IntPtr hObject);
 
-        //private static IntPtr _lastRegion = IntPtr.Zero;
-        //public static bool noBlur = true;
+        private static IntPtr _lastRegion = IntPtr.Zero;
+        public static bool noBlur = true;
 
-        //public static void EnableBlurBehindWindow(Border element, Window window)
-        //{
-        //    if (noBlur) return;
-        //    try
-        //    {
-        //        if (!DwmIsCompositionEnabled())
-        //            return;
-        //        if (window.Opacity > 0)
-        //        {
-        //            // Get the window handle
-        //            IntPtr hwnd = new WindowInteropHelper(window).Handle;
-        //            if (hwnd == IntPtr.Zero)
-        //                throw new InvalidOperationException("Window must be shown to blur");
+        public static void EnableBlurBehindWindow(Border element, Window window)
+        {
+            if (noBlur) return;
+            try
+            {
+                if (!DwmIsCompositionEnabled())
+                    return;
+                if (window.Opacity > 0)
+                {
+                    // Get the window handle
+                    IntPtr hwnd = new WindowInteropHelper(window).Handle;
+                    if (hwnd == IntPtr.Zero)
+                        throw new InvalidOperationException("Window must be shown to blur");
 
-        //            window.Background = Brushes.Transparent;
-        //            HwndSource.FromHwnd(hwnd).CompositionTarget.BackgroundColor = Colors.Transparent;
-        //            element.Background = new SolidColorBrush(Color.FromArgb(0x05, 0xff, 0xff, 0xff));
+                    window.Background = Brushes.Transparent;
+                    HwndSource.FromHwnd(hwnd).CompositionTarget.BackgroundColor = Colors.Transparent;
+                    element.Background = new SolidColorBrush(Color.FromArgb(0x20, 0x35, 0x85, 0xe4));
 
-        //            if (_lastRegion != IntPtr.Zero)
-        //                DeleteObject(_lastRegion);
+                    if (_lastRegion != IntPtr.Zero)
+                        DeleteObject(_lastRegion);
 
-        //            //var region = CreateRoundRectRgn((int)element.Margin.Left, (int)element.Margin.Top,
-        //            //    (int)(element.ActualWidth + element.Margin.Left), (int)(element.ActualHeight + element.Margin.Top),
-        //            //    (int)element.CornerRadius.TopLeft, (int)element.CornerRadius.TopLeft);
-        //            const int padding = 8;
-        //            //var region = CreateRectRgn(padding, padding, (int)element.ActualWidth + padding, (int)element.ActualHeight + padding);
-        //            var region = CreateRectRgn(padding, padding, (int)element.ActualWidth + padding, padding + 72);
+                    //var region = CreateRoundRectRgn((int)element.Margin.Left, (int)element.Margin.Top,
+                    //    (int)(element.ActualWidth + element.Margin.Left), (int)(element.ActualHeight + element.Margin.Top),
+                    //    (int)element.CornerRadius.TopLeft, (int)element.CornerRadius.TopLeft);
+                    const int padding = 8;
+                    //var region = CreateRectRgn(padding, padding, (int)element.ActualWidth + padding, (int)element.ActualHeight + padding);
+                    var region = CreateRectRgn(padding, padding, (int)element.ActualWidth + padding, (int)element.ActualHeight + padding);
 
-        //            _lastRegion = region;
+                    _lastRegion = region;
 
-        //            // Set Margins
-        //            DWM_BLURBEHIND blurBehind = new DWM_BLURBEHIND();
-        //            blurBehind.fEnable = true;
-        //            blurBehind.fTransitionOnMaximized = false;
-        //            blurBehind.hRgnBlur = region;
-        //            //blurBehind.dwFlags = DWM_BB.BlurRegion | DWM_BB.Enable | DWM_BB.TransitionMaximized;
-        //            blurBehind.dwFlags = DWM_BB.BlurRegion | DWM_BB.Enable;
+                    // Set Margins
+                    DWM_BLURBEHIND blurBehind = new DWM_BLURBEHIND();
+                    blurBehind.fEnable = true;
+                    blurBehind.fTransitionOnMaximized = false;
+                    blurBehind.hRgnBlur = region;
+                    //blurBehind.dwFlags = DWM_BB.BlurRegion | DWM_BB.Enable | DWM_BB.TransitionMaximized;
+                    blurBehind.dwFlags = DWM_BB.BlurRegion | DWM_BB.Enable;
 
-        //            DwmEnableBlurBehindWindow(hwnd, ref blurBehind);
-        //        }
-        //    }
-        //    catch (DllNotFoundException)
-        //    {
-        //    }
-        //}
+                    DwmEnableBlurBehindWindow(hwnd, ref blurBehind);
+                }
+            }
+            catch (DllNotFoundException)
+            {
+            }
+        }
         #endregion
 
         //public static void ExtendFrameIntoClientArea(Window wnd)
