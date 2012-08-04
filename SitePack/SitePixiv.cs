@@ -230,21 +230,15 @@ namespace SitePack
                 doc.LoadHtml(page);
 
                 //04/16/2012 17:44｜600×800｜SAI  or 04/16/2012 17:44｜600×800 or 04/19/2012 22:57｜漫画 6P｜SAI
-                string data1 = doc.DocumentNode.SelectSingleNode("//div[@class='works_data']").SelectSingleNode("p").InnerText;
+                i.Date = doc.DocumentNode.SelectSingleNode("//ul[@class='meta']/li[1]").InnerText;
+                //总点数
+                i.Score = int.Parse(doc.DocumentNode.SelectSingleNode("//dd[@class='score-count']").InnerText);
+                //「カルタ＆わたぬき」/「えれっと」のイラスト [pixiv]
+                i.Desc += doc.DocumentNode.SelectSingleNode("//title").InnerText.Replace("のイラスト [pixiv]", "").Replace("の漫画 [pixiv]", "").Replace("「", "").Replace("」", "").Replace("/", "_");
+                //600×800 or 漫画 6P
+                string dimension = doc.DocumentNode.SelectSingleNode("//ul[@class='meta']/li[2]").InnerText;
                 try
                 {
-                    i.Date = data1.Substring(0, data1.IndexOf('｜')).Trim();
-                    //总点数
-                    i.Score = int.Parse(doc.DocumentNode.SelectSingleNode("//div[@id='unit']").SelectSingleNode(".//div[3]").InnerText);
-                    //i.Tags = doc.DocumentNode.SelectSingleNode("//span[@id='tags']").InnerText.Replace("　", "").Replace("*", "");
-                    //「カルタ＆わたぬき」/「えれっと」のイラスト [pixiv]
-                    i.Desc += doc.DocumentNode.SelectSingleNode("//title").InnerText.Replace("のイラスト [pixiv]", "").Replace("「", "").Replace("」", "").Replace("/", "_");
-                }
-                catch { }
-                try
-                {
-                    int index = data1.IndexOf('｜') + 1;
-                    string dimension = data1.Substring(index).Trim();
                     //706×1000
                     i.Width = int.Parse(dimension.Substring(0, dimension.IndexOf('×')));
                     i.Height = int.Parse(System.Text.RegularExpressions.Regex.Match(dimension.Substring(dimension.IndexOf('×') + 1), @"\d+").Value);
@@ -257,10 +251,9 @@ namespace SitePack
                         i.OriginalUrl = i.PreviewUrl.Replace("_s.", "_p0.");
                         i.JpegUrl = i.OriginalUrl;
                         //manga list
-                        //漫画 6P｜SAI
-                        string mangaPart = data1.Substring(data1.IndexOf('｜') + 1).Trim();
-                        int index = mangaPart.IndexOf(' ') + 1;
-                        mangaPart = mangaPart.Substring(index, mangaPart.IndexOf('P') - index);
+                        //漫画 6P
+                        int index = dimension.IndexOf(' ') + 1;
+                        string mangaPart = dimension.Substring(index, dimension.IndexOf('P') - index);
                         int mangaCount = int.Parse(mangaPart);
                         i.Dimension = "Manga " + mangaCount + "P";
                         for (int j = 0; j < mangaCount; j++)
