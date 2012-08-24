@@ -147,7 +147,7 @@ namespace SitePack
                 {
                     HtmlNode anode = imgNode.SelectSingleNode("a");
                     //details will be extracted from here
-                    //eg. /member_illust.php?mode=medium&amp;illust_id=26595034
+                    //eg. member_illust.php?mode=medium&illust_id=29561307&ref=rn-b-5-thumbnail
                     string detailUrl = anode.Attributes["href"].Value.Replace("amp;", "");
                     string previewUrl = null;
                     if (srcType == PixivSrcType.Tag || srcType == PixivSrcType.Author)
@@ -159,7 +159,9 @@ namespace SitePack
                         previewUrl = previewUrl.Substring(0, previewUrl.IndexOf('?'));
 
                     //extract id from detail url
-                    string id = detailUrl.Substring(detailUrl.LastIndexOf('=') + 1);
+                    //string id = detailUrl.Substring(detailUrl.LastIndexOf('=') + 1);
+                    string id = System.Text.RegularExpressions.Regex.Match(detailUrl, @"illust_id=\d+").Value;
+                    id = id.Substring(id.IndexOf('=') + 1);
 
                     Img img = GenerateImg(detailUrl, previewUrl, id);
                     if (img != null) imgs.Add(img);
