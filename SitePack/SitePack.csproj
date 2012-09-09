@@ -53,6 +53,7 @@
     <Compile Include="SitePixiv.cs" />
     <Compile Include="SitePixivPhone.cs" />
     <Compile Include="SiteProvider.cs" />
+    <Compile Include="SiteSankaku.cs" />
     <Compile Include="SiteWCosplay.cs" />
     <Compile Include="SiteZeroChan.cs" />
   </ItemGroup>

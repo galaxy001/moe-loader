@@ -205,7 +205,7 @@ namespace MoeLoader
             MenuItem item = sender as MenuItem;
             comboBoxIndex = (int)(item.DataContext);
             siteMenu.Header = SiteManager.Instance.Sites[comboBoxIndex].ShortName;
-            siteMenu.Icon = (item.Parent as MenuItem).Header == item.Header ? item.Icon : (item.Parent as MenuItem).Icon;
+            siteMenu.Icon = (item.Parent as MenuItem).Header.ToString() == item.Header.ToString() ? item.Icon : (item.Parent as MenuItem).Icon;
             //functionality support check
             if (SiteManager.Instance.Sites[comboBoxIndex].IsSupportCount)
             {
