@@ -42,15 +42,17 @@ namespace SitePack
             //    "http://nekobooru.net/tag/index.xml?limit={0}&order=count&name={1}",
             //    "nekobooru.net", "nekobooru", null, false, BooruProcessor.SourceType.XML));
 
-            sites.Add(new SiteBooru(
-                "http://idol.sankakucomplex.com/post/index.json?page={0}&limit={1}&tags={2}",
-                "http://idol.sankakucomplex.com/tag/index.xml?limit={0}&order=count&name={1}",
-                "idol.sankakucomplex.com", "idol", null, false, MoeLoader.BooruProcessor.SourceType.JSON));
+            //sites.Add(new SiteBooru(
+            //    "http://idol.sankakucomplex.com/post/index.json?page={0}&limit={1}&tags={2}",
+            //    "http://idol.sankakucomplex.com/tag/index.xml?limit={0}&order=count&name={1}",
+            //    "idol.sankakucomplex.com", "idol", null, false, MoeLoader.BooruProcessor.SourceType.JSON));
 
-            sites.Add(new SiteBooru(
-                "http://chan.sankakucomplex.com/post/index.json?page={0}&limit={1}&tags={2}",
-                "http://chan.sankakucomplex.com/tag/index.xml?limit={0}&order=count&name={1}",
-                "chan.sankakucomplex.com", "chan", null, false, MoeLoader.BooruProcessor.SourceType.JSON));
+            //sites.Add(new SiteBooru(
+            //    "http://chan.sankakucomplex.com/post/index.json?page={0}&limit={1}&tags={2}",
+            //    "http://chan.sankakucomplex.com/tag/index.xml?limit={0}&order=count&name={1}",
+            //    "chan.sankakucomplex.com", "chan", null, false, MoeLoader.BooruProcessor.SourceType.JSON));
+            sites.Add(new SiteSankaku("idol"));
+            sites.Add(new SiteSankaku("chan"));
 
             sites.Add(new SiteBooru(
                 "http://safebooru.org/index.php?page=dapi&s=post&q=index&pid={0}&limit={1}&tags={2}",
