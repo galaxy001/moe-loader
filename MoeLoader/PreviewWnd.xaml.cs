@@ -520,5 +520,14 @@ namespace MoeLoader
         {
             brdDesc.Opacity = 1;
         }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Clipboard.SetText(descs[selectedId].Desc);
+            }
+            catch (Exception) { }
+        }
     }
 }

@@ -394,5 +394,45 @@ namespace MoeLoader
                 DownloadImg();
             }
         }
+
+        private void txtDesc_Click_1(object sender, RoutedEventArgs e)
+        {
+            //ori
+            try
+            {
+                Clipboard.SetText(img.OriginalUrl);
+            }
+            catch (Exception) { }
+        }
+
+        private void txtDesc_Click_2(object sender, RoutedEventArgs e)
+        {
+            //sample
+            try
+            {
+                Clipboard.SetText(img.SampleUrl);
+            }
+            catch (Exception) { }
+        }
+
+        private void txtDesc_Click_3(object sender, RoutedEventArgs e)
+        {
+            //preview
+            try
+            {
+                Clipboard.SetText(img.PreviewUrl);
+            }
+            catch (Exception) { }
+        }
+
+        private void txtDesc_Click_4(object sender, RoutedEventArgs e)
+        {
+            //tag
+            try
+            {
+                Clipboard.SetText(img.Desc);
+            }
+            catch (Exception) { }
+        }
     }
 }

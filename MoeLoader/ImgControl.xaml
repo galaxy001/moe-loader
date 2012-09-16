@@ -127,7 +127,16 @@
             <Border x:Name="brdScr"  Width="40" Height="25" BorderBrush="#FF9C9C9C" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#99FFFFFF" CornerRadius="12,0,0,0">
                 <TextBlock x:Name="score" Text="0" FontSize="14" TextWrapping="NoWrap" Foreground="#FF009CC2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" FontFamily="Arial"/>
             </Border>
-            <TextBlock x:Name="txtDesc" Text="" Margin="0,0,0,25" Padding="7,2,7,2" d:LayoutOverrides="Height" Background="#8FFFFFFF" TextTrimming="CharacterEllipsis" Opacity="0"/>
+            <TextBlock x:Name="txtDesc" Text="" Margin="0,0,0,25" Padding="7,2,7,2" d:LayoutOverrides="Height" Background="#8FFFFFFF" TextTrimming="CharacterEllipsis" Opacity="0">
+                <TextBlock.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="复制原图地址(_O)" Click="txtDesc_Click_1" ToolTip="复制原图地址至剪贴板"/>
+                        <MenuItem Header="复制预览图地址(_P)" Click="txtDesc_Click_2" ToolTip="复制预览图地址至剪贴板"/>
+                        <MenuItem Header="复制缩略图地址(_T)" Click="txtDesc_Click_3" ToolTip="复制缩略图地址至剪贴板"/>
+                        <MenuItem Header="复制Tag(_D)" Click="txtDesc_Click_4" ToolTip="复制Tag至剪贴板"/>
+                    </ContextMenu>
+                </TextBlock.ContextMenu>
+            </TextBlock>
             <Border x:Name="magBtn" BorderThickness="1" Margin="0,0,40,5" Width="32" Height="32" HorizontalAlignment="Right" VerticalAlignment="Bottom" ToolTip="查看预览图" Opacity="0" BorderBrush="#00c0c0c0">
                 <Border.Triggers>
                     <EventTrigger RoutedEvent="Mouse.MouseEnter">

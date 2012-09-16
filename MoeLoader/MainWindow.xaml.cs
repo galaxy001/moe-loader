@@ -700,7 +700,7 @@ namespace MoeLoader
             //string fileName = GenFileName(imgs[index]);
             //downloadC.AddDownload(new MiniDownloadItem[] { new MiniDownloadItem(fileName, url) });
 
-            System.Media.SystemSounds.Exclamation.Play();
+            //System.Media.SystemSounds.Exclamation.Play();
         }
 
         /// <summary>
@@ -1009,7 +1009,7 @@ namespace MoeLoader
             isGetting = false;
             imgGet.Source = new BitmapImage(new Uri("/Images/search.png", UriKind.Relative));
 
-            System.Media.SystemSounds.Beep.Play();
+            //System.Media.SystemSounds.Beep.Play();
             if (GlassHelper.GetForegroundWindow() != MainWindow.Hwnd)
                 GlassHelper.FlashWindow(Hwnd, true);
         }
@@ -1325,7 +1325,7 @@ namespace MoeLoader
                 //System.GC.Collect();
             }
             previewFrm.AddPreview(imgs[index], index, SiteManager.Instance.Sites[nowSelectedIndex].Referer);
-            System.Media.SystemSounds.Exclamation.Play();
+            //System.Media.SystemSounds.Exclamation.Play();
         }
 
         public void SelectByIndex(int index)

@@ -136,7 +136,7 @@ namespace SitePack
                 //JpegUrl = preview_url,
                 //OriginalUrl = preview_url,
                 PreviewUrl = preview_url,
-                //SampleUrl = preview_url,
+                SampleUrl = preview_url,
                 //Score = 0,
                 Tags = tags,
             };
