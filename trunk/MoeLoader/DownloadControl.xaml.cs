@@ -452,7 +452,7 @@ namespace MoeLoader
                     Win7TaskBar.StopProcess(MainWindow.Hwnd);
                     if (GlassHelper.GetForegroundWindow() != MainWindow.Hwnd)
                     {
-                        System.Media.SystemSounds.Beep.Play();
+                        //System.Media.SystemSounds.Beep.Play();
                         GlassHelper.FlashWindow(MainWindow.Hwnd, true);
                     }
 

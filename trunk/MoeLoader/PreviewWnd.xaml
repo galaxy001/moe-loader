@@ -78,7 +78,8 @@
                     <MenuItem Header="复制(_C)" Click="MenuItem_Click" ToolTip="复制预览图至剪贴板"/>
                     <MenuItem Header="复制原图地址(_O)" Click="MenuItem_Click_2" ToolTip="复制原图地址至剪贴板"/>
                     <MenuItem Header="复制预览图地址(_P)" Click="MenuItem_Click_1" ToolTip="复制预览图地址至剪贴板"/>
-                    <MenuItem Header="复制来源地址(_R)" Click="MenuItem_Click_3" ToolTip="复制来源地址至剪贴板"/>
+                    <MenuItem Header="复制来源(_R)" Click="MenuItem_Click_3" ToolTip="复制来源至剪贴板"/>
+                    <MenuItem Header="复制描述(_D)" Click="MenuItem_Click_4" ToolTip="复制描述至剪贴板"/>
                 </ContextMenu>
             </Grid.ContextMenu>
         </Grid>
@@ -96,6 +97,14 @@
         </Button>-->
         <Border x:Name="brdDesc" Margin="0,0,15,15" BorderBrush="#CC4B4B4B" BorderThickness="1,1,1,1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#80FFFFFF" CornerRadius="5" Width="350" MouseEnter="Border_MouseEnter_1" MouseLeave="Border_MouseLeave_1">
             <TextBlock x:Name="desc" Text="" TextWrapping="Wrap" Margin="5" LineHeight="6"/>
+            <Border.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="复制原图地址(_O)" Click="MenuItem_Click_2" ToolTip="复制原图地址至剪贴板"/>
+                    <MenuItem Header="复制预览图地址(_P)" Click="MenuItem_Click_1" ToolTip="复制预览图地址至剪贴板"/>
+                    <MenuItem Header="复制来源(_R)" Click="MenuItem_Click_3" ToolTip="复制来源至剪贴板"/>
+                    <MenuItem Header="复制描述(_D)" Click="MenuItem_Click_4" ToolTip="复制描述至剪贴板"/>
+                </ContextMenu>
+            </Border.ContextMenu>
         </Border>
         <Border Margin="0" BorderBrush="#99000000" BorderThickness="0,0,0,1">
             <StackPanel x:Name="btns" Orientation="Horizontal" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" Margin="1"/>
