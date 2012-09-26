@@ -10,8 +10,8 @@ namespace SitePack
 {
     public class SiteMjvArt : MoeLoader.AbstractImageSite
     {
-        public override string SiteUrl { get { return "http://mjv-art.org"; } }
-        public override string SiteName { get { return "mjv-art.org"; } }
+        public override string SiteUrl { get { return "http://anime-pictures.net"; } }
+        public override string SiteName { get { return "anime-pictures.net"; } }
         public override string ShortName { get { return "mjv-art"; } }
         //public string Referer { get { return null; } }
 
