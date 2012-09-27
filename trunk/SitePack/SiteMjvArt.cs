@@ -175,6 +175,7 @@ namespace SitePack
                 //retrieve details
                 MyWebClient web = new MyWebClient();
                 web.Proxy = p;
+                web.Headers["Cookie"] = sessionId;
                 web.Encoding = Encoding.UTF8;
                 string page = web.DownloadString(detailUrl);
 
