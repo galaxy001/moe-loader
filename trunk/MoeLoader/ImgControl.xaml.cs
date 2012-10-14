@@ -104,10 +104,21 @@ namespace MoeLoader
         void ShowImgDetail()
         {
             chk.Text = img.Dimension;
+            string type = "N/A";
+            if (img.OriginalUrl.Length > 6)
+            {
+                type = img.OriginalUrl.Substring(img.OriginalUrl.Length - 3, 3).ToUpper();
+            }
+            else
+            {
+                //不应该有这么短的url，有问题
+                LayoutRoot.IsEnabled = false;
+                chk.Text = "原始地址无效";
+                return;
+            }
             score.Text = img.Score.ToString();
             txtDesc.Inlines.Add(img.Id + " " + img.Desc);
             txtDesc.Inlines.Add(new LineBreak());
-            string type = img.OriginalUrl.Substring(img.OriginalUrl.Length - 3, 3).ToUpper();
             txtDesc.Inlines.Add(type);
             //txtDesc.Inlines.Add(new LineBreak());
             txtDesc.Inlines.Add(" " + img.FileSize);
