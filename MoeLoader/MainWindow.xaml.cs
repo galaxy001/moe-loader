@@ -1102,7 +1102,7 @@ namespace MoeLoader
         private void Window_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
             //maxmize
-            if (e.GetPosition(this).Y < bdDecorate.ActualHeight) Max_Click(null, null);
+            if (e.OriginalSource is System.Windows.Controls.Grid && e.GetPosition(this).Y < bdDecorate.ActualHeight) Max_Click(null, null);
         }
 
         /// <summary>
