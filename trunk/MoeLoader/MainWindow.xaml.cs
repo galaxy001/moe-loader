@@ -192,7 +192,7 @@ namespace MoeLoader
 
             Proxy = "127.0.0.1:8000";
             ProxyType = MoeLoader.ProxyType.System;
-            BossKey = System.Windows.Forms.Keys.Subtract;
+            bossKey = System.Windows.Forms.Keys.Subtract;
 
             LoadConfig();
             //itmxExplicit.IsChecked = !showExplicit;
@@ -244,6 +244,8 @@ namespace MoeLoader
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             logo = FindResource("logoRotate") as System.Windows.Media.Animation.Storyboard;
+
+            BossKey = bossKey;
 
             GlassHelper.EnableBlurBehindWindow(containerB, this);
             (new System.Threading.Thread(new System.Threading.ThreadStart(LoadBgImg))).Start();
@@ -430,7 +432,7 @@ namespace MoeLoader
                         }
                         if (parts.Length > 6)
                         {
-                            BossKey = (System.Windows.Forms.Keys)Enum.Parse(typeof(System.Windows.Forms.Keys), parts[6]);
+                            bossKey = (System.Windows.Forms.Keys)Enum.Parse(typeof(System.Windows.Forms.Keys), parts[6]);
                         }
                         if (parts.Length > 7)
                         {
@@ -1127,26 +1129,22 @@ namespace MoeLoader
                 {
                     if (previewFrm != null && previewFrm.IsLoaded)
                     {
-                        if (!previewFrm.ShowInTaskbar)
+                        if (previewFrm.Visibility == System.Windows.Visibility.Hidden)
                         {
-                            previewFrm.WindowState = System.Windows.WindowState.Normal;
-                            previewFrm.ShowInTaskbar = true;
+                            previewFrm.Visibility = System.Windows.Visibility.Visible;
                         }
                         else
                         {
-                            previewFrm.WindowState = System.Windows.WindowState.Minimized;
-                            previewFrm.ShowInTaskbar = false;
+                            previewFrm.Visibility = System.Windows.Visibility.Hidden;
                         }
                     }
-                    if (!ShowInTaskbar)
+                    if (Visibility == System.Windows.Visibility.Hidden)
                     {
-                        WindowState = System.Windows.WindowState.Normal;
-                        ShowInTaskbar = true;
+                        Visibility = System.Windows.Visibility.Visible;
                     }
                     else
                     {
-                        WindowState = System.Windows.WindowState.Minimized;
-                        ShowInTaskbar = false;
+                        Visibility = System.Windows.Visibility.Hidden;
                     }
                 }
             }
