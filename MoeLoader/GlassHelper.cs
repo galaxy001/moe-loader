@@ -103,7 +103,7 @@ namespace MoeLoader
                     //var region = CreateRoundRectRgn((int)element.Margin.Left, (int)element.Margin.Top,
                     //    (int)(element.ActualWidth + element.Margin.Left), (int)(element.ActualHeight + element.Margin.Top),
                     //    (int)element.CornerRadius.TopLeft, (int)element.CornerRadius.TopLeft);
-                    const int padding = 8;
+                    const int padding = 6;
                     //var region = CreateRectRgn(padding, padding, (int)element.ActualWidth + padding, (int)element.ActualHeight + padding);
                     var region = CreateRectRgn(padding, padding, (int)element.ActualWidth + padding, (int)element.ActualHeight + padding);
 
