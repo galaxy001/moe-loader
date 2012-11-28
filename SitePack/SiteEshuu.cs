@@ -157,7 +157,12 @@ namespace SitePack
                 string date = meta.SelectSingleNode(".//dd[2]").InnerText;
                 string fileSize = meta.SelectSingleNode(".//dd[3]").InnerText;
                 string dimension = meta.SelectSingleNode(".//dd[4]").InnerText;
-                string tags = meta.SelectSingleNode(".//dd[5]").InnerText;
+                string tags = "";
+                try
+                {
+                    tags = meta.SelectSingleNode(".//dd[5]").InnerText;
+                }
+                catch { }
 
                 Img img = GenerateImg(fileUrl, previewUrl, dimension, date, tags, fileSize, id);
                 if (img != null) imgs.Add(img);
