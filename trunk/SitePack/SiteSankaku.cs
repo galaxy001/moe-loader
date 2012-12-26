@@ -23,6 +23,7 @@ namespace SitePack
         {
             get { return false; }
         }
+        public override string Referer { get { return "http://" + sitePrefix + ".sankakucomplex.com"; } }
 
         /// <summary>
         /// sankakucomplex site
