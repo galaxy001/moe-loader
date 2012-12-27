@@ -26,6 +26,7 @@ namespace SitePack
         //public bool IsSupportRes { get { return true; } }
         //public bool IsSupportPreview { get { return true; } }
         //public bool IsSupportTag { get { return true; } }
+        //public override string Referer { get { return "http://www.zerochan.net/"; } }
 
         public override System.Drawing.Point LargeImgSize { get { return new System.Drawing.Point(240, 240); } }
         public override System.Drawing.Point SmallImgSize { get { return new System.Drawing.Point(240, 240); } }
@@ -115,16 +116,13 @@ namespace SitePack
                 int id = int.Parse(strId.Substring(1));
                 HtmlNode imgHref = imgNode.SelectSingleNode(".//img");
                 string previewUrl = imgHref.Attributes["src"].Value;
-                //http://s2.zerochan.net/240/27/09/1062977.jpg   preview
-                //http://s1.zerochan.net/600/27/09/1062977.jpg    sample
-                //http://static.zerochan.net/full/27/09/1062977.jpg   full
-                //http://s2.zerochan.net/Black.Wolves.Saga.240.1135413.jpg preview pattern 2
+                //http://s3.zerochan.net/Morgiana.240.1355397.jpg   preview
+                //http://s3.zerochan.net/Morgiana.600.1355397.jpg    sample
+                //http://static.zerochan.net/Morgiana.full.1355397.jpg   full
                 //先加前一个，再加后一个  范围都是00-49
-                string folder = (id % 2500 % 50).ToString("00") + "/" + (id % 2500 / 50).ToString("00");
-                //string fileUrl = "http://static.zerochan.net/full" + previewUrl.Substring(previewUrl.IndexOf('/', previewUrl.IndexOf(".net/") + 5));
-                //string sample_url = "http://s1.zerochan.net/600" + previewUrl.Substring(previewUrl.IndexOf('/', previewUrl.IndexOf(".net/") + 5));
-                string fileUrl = "http://static.zerochan.net/full/" + folder + strId + ".jpg";
-                string sample_url = "http://s1.zerochan.net/600/" + folder + strId + ".jpg";
+                //string folder = (id % 2500 % 50).ToString("00") + "/" + (id % 2500 / 50).ToString("00");
+                string sample_url = previewUrl.Replace("240", "600");
+                string fileUrl = "http://static.zerochan.net" + previewUrl.Substring(previewUrl.IndexOf('/', 8)).Replace("240", "full");
                 string title = imgHref.Attributes["title"].Value;
                 string dimension = title.Substring(0, title.IndexOf(' '));
                 string fileSize = title.Substring(title.IndexOf(' ')).Trim();
