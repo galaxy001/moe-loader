@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="image\behoimi.ico" />
-    <EmbeddedResource Include="image\chan.ico" />
     <EmbeddedResource Include="image\donmai.ico" />
     <EmbeddedResource Include="image\e-shuushuu.ico" />
     <EmbeddedResource Include="image\gelbooru.ico" />
@@ -80,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="image\minitokyo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="image\chans.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
