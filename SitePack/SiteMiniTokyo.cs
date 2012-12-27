@@ -153,9 +153,9 @@ namespace SitePack
                 HtmlNode imgHref = imgNode.SelectSingleNode(".//img");
                 string previewUrl = imgHref.Attributes["src"].Value;
                 //http://static2.minitokyo.net/thumbs/24/25/583774.jpg preview
-                //http://static1.minitokyo.net/view/24/25/583774.jpg   sample
+                //http://static2.minitokyo.net/view/24/25/583774.jpg   sample
                 //http://static.minitokyo.net/downloads/24/25/583774.jpg   full
-                string sampleUrl = "http://static1.minitokyo.net/view" + previewUrl.Substring(previewUrl.IndexOf('/', previewUrl.IndexOf(".net/") + 5));
+                string sampleUrl = "http://static2.minitokyo.net/view" + previewUrl.Substring(previewUrl.IndexOf('/', previewUrl.IndexOf(".net/") + 5));
                 string fileUrl = "http://static.minitokyo.net/downloads" + previewUrl.Substring(previewUrl.IndexOf('/', previewUrl.IndexOf(".net/") + 5));
                 //1092x1575, 1920x1080, 6 Favorites
                 string title = descNode.SelectSingleNode(".//p[@class='description'][2]").InnerText;
