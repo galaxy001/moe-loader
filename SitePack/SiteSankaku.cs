@@ -14,7 +14,7 @@ namespace SitePack
 
         public override string SiteUrl { get { return "http://" + sitePrefix + ".sankakucomplex.com"; } }
         public override string SiteName { get { return sitePrefix + ".sankakucomplex.com"; } }
-        public override string ShortName { get { if (sitePrefix == "chan") return "chans"; else return "idol"; } }
+        public override string ShortName { get { if (sitePrefix == "chan") return "chan.s"; else return "idol.s"; } }
         public override bool IsSupportScore
         {
             get { return false; }
