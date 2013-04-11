@@ -236,8 +236,8 @@ namespace MoeLoader
                     else if (dest.Length > 259)
                     {
                         downloadItems[downloadItems.Count - numLeft].StatusE = DLStatus.Failed;
-                        downloadItems[downloadItems.Count - numLeft].Size = "文件路径过长";
-                        System.IO.File.AppendAllText(saveLocation + "\\moe_error.txt", url + ": 文件路径过长\r\n");
+                        downloadItems[downloadItems.Count - numLeft].Size = "路径过长";
+                        System.IO.File.AppendAllText(saveLocation + "\\moe_error.txt", url + ": 路径过长\r\n");
                         j--;
                     }
                     else

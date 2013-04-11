@@ -22,10 +22,11 @@ namespace SitePack
                 "http://konachan.com/tag/index.xml?limit={0}&order=count&name={1}",
                 "konachan.com", "konachan", null, false, MoeLoader.BooruProcessor.SourceType.XML));
 
-            sites.Add(new SiteBooru(
-                "http://donmai.us/post?page={0}&limit={1}&tags={2}",
-                "http://donmai.us/tag/index.xml?limit={0}&order=count&name={1}",
-                "danbooru.donmai.us", "donmai", null, false, MoeLoader.BooruProcessor.SourceType.HTML));
+            //sites.Add(new SiteBooru(
+            //    "http://donmai.us/post?page={0}&limit={1}&tags={2}",
+            //    "http://donmai.us/tag/index.xml?limit={0}&order=count&name={1}",
+            //    "danbooru.donmai.us", "donmai", null, false, MoeLoader.BooruProcessor.SourceType.HTML));
+            sites.Add(new SiteDanbooru());
 
             sites.Add(new SiteBooru(
                 "http://behoimi.org/post/index.xml?page={0}&limit={1}&tags={2}",

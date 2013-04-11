@@ -847,8 +847,8 @@ namespace MoeLoader
                 (new System.Threading.Thread(new System.Threading.ParameterizedThreadStart((o) =>
                 {
                     List<Img> imgList = null;
-                    try
-                    {
+                    //try
+                    //{
                         //prefetch
                         string pageString = PreFetcher.Fetcher.GetPreFetchedPage(realPage, realNum, Uri.EscapeDataString(word), SiteManager.Instance.Sites[nowSelectedIndex]);
                         if (pageString != null)
@@ -858,17 +858,17 @@ namespace MoeLoader
                         else imgList = SiteManager.Instance.Sites[nowSelectedIndex].GetImages(realPage, realNum, Uri.EscapeDataString(word), WebProxy);
 
                         imgList = SiteManager.Instance.Sites[nowSelectedIndex].FilterImg(imgList, MaskInt, MaskRes, LastViewed, MaskViewed, showExplicit, true);
-                    }
-                    catch (Exception ex)
-                    {
-                        if (!(o as SessionState).IsStop)
-                        {
-                            Dispatcher.Invoke(new VoidDel(() =>
-                            {
-                                MessageBox.Show(this, "获取图片遇到错误: " + ex.Message, "Moe Loader", MessageBoxButton.OK, MessageBoxImage.Warning);
-                            }));
-                        }
-                    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    if (!(o as SessionState).IsStop)
+                    //    {
+                    //        Dispatcher.Invoke(new VoidDel(() =>
+                    //        {
+                    //            MessageBox.Show(this, "获取图片遇到错误: " + ex.Message, "Moe Loader", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    //        }));
+                    //    }
+                    //}
                     if (!(o as SessionState).IsStop)
                     {
                         Dispatcher.Invoke(new UIdelegate(LoadComplete), imgList);
