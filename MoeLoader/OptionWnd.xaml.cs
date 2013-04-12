@@ -25,7 +25,7 @@ namespace MoeLoader
             this.main = main;
 			this.InitializeComponent();
 
-            if (!System.IO.File.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\nofont"))
+            if (!System.IO.File.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\nofont.txt"))
             {
                 FontFamily = new FontFamily("Microsoft YaHei");
             }

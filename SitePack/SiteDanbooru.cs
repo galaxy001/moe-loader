@@ -63,7 +63,7 @@ namespace SitePack
                     PreviewUrl = this.SiteUrl + node3.Attributes["src"].Value,
                 };
 
-                item.DownloadDetail = delegate(Img i, System.Net.IWebProxy p)
+                item.DownloadDetail = (i, p) =>
                 {
                     string html = new MyWebClient { Proxy = p, Encoding = Encoding.UTF8 }.DownloadString(this.SiteUrl + node2.Attributes["href"].Value);
                     HtmlDocument doc = new HtmlDocument();

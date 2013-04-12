@@ -52,7 +52,7 @@ namespace SitePack
             //    "http://chan.sankakucomplex.com/post/index.json?page={0}&limit={1}&tags={2}",
             //    "http://chan.sankakucomplex.com/tag/index.xml?limit={0}&order=count&name={1}",
             //    "chan.sankakucomplex.com", "chan", null, false, MoeLoader.BooruProcessor.SourceType.JSON));
-            if (System.IO.File.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\18x"))
+            if (System.IO.File.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\18x.txt"))
                 sites.Add(new SiteSankaku("idol"));
 
             sites.Add(new SiteSankaku("chan"));
