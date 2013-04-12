@@ -359,7 +359,7 @@ namespace MoeLoader
         private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show(this, "Moe Loader V" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version +
-            "\r\n\r\n©2008-2012 esonic\r\nAll rights reserved.\r\n\r\nEmail: esonice@gmail.com\r\nSite: http://moeloader.sinaapp.com/", "Moe Loader - 关于", MessageBoxButton.OK, MessageBoxImage.Information);
+            "\r\n\r\n©2008-2013 esonic\r\nAll rights reserved.\r\n\r\nEmail: esonice@gmail.com\r\nSite: http://moeloader.sinaapp.com/", "Moe Loader - 关于", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>
