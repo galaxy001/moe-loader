@@ -6,6 +6,9 @@ using System.Text;
 
 namespace MoeLoader
 {
+    /// <summary>
+    /// 管理站点定义
+    /// </summary>
     public class SiteManager
     {
         private List<ImageSite> sites = new List<ImageSite>();
@@ -41,6 +44,11 @@ namespace MoeLoader
             }
         }
 
+        /// <summary>
+        /// 检查站点定义是否有更新
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
         public static bool CheckUpdate(string version)
         {
             try
@@ -59,6 +67,9 @@ namespace MoeLoader
             return false;
         }
 
+        /// <summary>
+        /// 站点定义管理者
+        /// </summary>
         public static SiteManager Instance
         {
             get
@@ -71,6 +82,9 @@ namespace MoeLoader
             }
         }
 
+        /// <summary>
+        /// 站点集合
+        /// </summary>
         public List<ImageSite> Sites
         {
             get

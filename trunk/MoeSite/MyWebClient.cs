@@ -130,11 +130,17 @@ namespace MoeLoader
     /// <param name="userdata"></param>
     //public delegate void TimeoutCaller(object userdata);
 
+    /// <summary>
+    /// 带有超时的WebClient
+    /// </summary>
     public class MyWebClient : WebClient
     {
         //private Calculagraph _timer;
         private int _timeOut = 30;
 
+        /// <summary>
+        /// 构造WebClient
+        /// </summary>
         public MyWebClient()
         {
             Headers["User-Agent"] = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
@@ -158,7 +164,7 @@ namespace MoeLoader
         }
 
         /// <summary>
-        /// 重写GetWebRequest,添加WebRequest对象超时时间
+        /// 重写GetWebRequest，添加WebRequest对象超时时间
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>

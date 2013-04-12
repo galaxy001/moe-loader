@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 namespace MoeLoader
 {
     /// <summary>
-    /// 从服务器获取图片信息，HTML, XML 或 JSON 格式
+    /// 处理Booru类型站点
     /// </summary>
     public class BooruProcessor
     {
@@ -24,16 +24,26 @@ namespace MoeLoader
         /// <summary>
         /// 处理类型
         /// </summary>
-        public enum SourceType { XML, JSON, HTML }
+        public enum SourceType
+        {
+            /// <summary>
+            /// XML
+            /// </summary>
+            XML,
+            /// <summary>
+            /// JSON
+            /// </summary>
+            JSON,
+            /// <summary>
+            /// HTML
+            /// </summary>
+            HTML 
+        }
 
         /// <summary>
         /// 获取图片源信息
         /// </summary>
-        /// <param name="mask">分数屏蔽</param>
-        /// <param name="maskRes">分辨率屏蔽</param>
-        /// <param name="url">访问地址</param>
         /// <param name="type">处理类型</param>
-        /// <param name="maskViewed">屏蔽已浏览</param>
         public BooruProcessor(SourceType type)
         {
             //this.mask = mask;
@@ -128,10 +138,10 @@ namespace MoeLoader
         //}
 
         /// <summary>
-        /// 
+        /// 提取页面中的图片信息
         /// </summary>
-        /// <param name="url">eg. "http://konachan.com/asdf"</param>
-        /// <param name="pageString"></param>
+        /// <param name="url">页面地址</param>
+        /// <param name="pageString">页面源代码</param>
         /// <returns></returns>
         public List<Img> ProcessPage(string url, string pageString)
         {
@@ -431,7 +441,6 @@ namespace MoeLoader
         /// </summary>
         /// <param name="file_url"></param>
         /// <param name="preview_url"></param>
-        /// <param name="size"></param>
         /// <param name="sample"></param>
         /// <param name="created_at"></param>
         /// <param name="tags"></param>
