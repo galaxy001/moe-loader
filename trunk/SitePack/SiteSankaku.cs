@@ -23,7 +23,7 @@ namespace SitePack
         {
             get { return false; }
         }
-        public override string Referer { get { return "http://" + sitePrefix + ".sankakucomplex.com"; } }
+        public override string Referer { get { return "http://" + sitePrefix + ".sankakucomplex.com/post/show/"; } }
 
         /// <summary>
         /// sankakucomplex site
@@ -137,12 +137,12 @@ namespace SitePack
                 //JpegUrl = preview_url,
                 //OriginalUrl = preview_url,
                 PreviewUrl = preview_url,
-                SampleUrl = preview_url,
+                //SampleUrl = preview_url,
                 //Score = 0,
                 Tags = tags,
             };
 
-            img.DownloadDetail = new DetailHandler((i, p) =>
+            img.DownloadDetail = (i, p) =>
             {
                 //retrieve details
                 MyWebClient web = new MyWebClient();
@@ -175,7 +175,7 @@ namespace SitePack
                         i.FileSize = i.FileSize.Substring(0, i.FileSize.Length -  1);
                     }
                 }
-            });
+            };
 
             return img;
         }

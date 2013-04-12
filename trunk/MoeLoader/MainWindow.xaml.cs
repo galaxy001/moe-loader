@@ -121,7 +121,7 @@ namespace MoeLoader
         {
             InitializeComponent();
 
-            if (!System.IO.File.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\nofont"))
+            if (!System.IO.File.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\nofont.txt"))
             {
                 FontFamily = new FontFamily("Microsoft YaHei");
             }
@@ -253,7 +253,7 @@ namespace MoeLoader
             System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(CheckVersion));
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.IsBackground = true;
-            if (!System.IO.File.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\debug"))
+            if (!System.IO.File.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\debug.txt"))
                 t.Start();
         }
 

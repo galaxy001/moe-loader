@@ -128,8 +128,8 @@ namespace SitePack
             HtmlNodeCollection nodes = null;
             if (srcType == PixivSrcType.Tag)
             {
-                nodes = doc.DocumentNode.SelectNodes("//ul[@class='images autopagerize_page_element']");
-                nodes = nodes[nodes.Count - 1].SelectNodes("li");
+                nodes = doc.DocumentNode.SelectSingleNode("//ul[@class='image-items autopagerize_page_element']").SelectNodes("li");
+                //nodes = nodes[nodes.Count - 1].SelectNodes("li");
             }
             else if (srcType == PixivSrcType.Author)
                 nodes = doc.DocumentNode.SelectSingleNode("//div[@class='display_works linkStyleWorks']").SelectSingleNode("ul").SelectNodes("li");
@@ -195,12 +195,12 @@ namespace SitePack
             if (preview_url.StartsWith("/"))
                 preview_url = SiteUrl + preview_url;
 
-            string fileUrl = preview_url.Replace("_s.", ".");
-            string sampleUrl = preview_url.Replace("_s.", "_m.");
+            //string fileUrl = preview_url.Replace("_s.", ".");
+            //string sampleUrl = preview_url.Replace("_s.", "_m.");
 
-            //http://img76.pixiv.net/img/2a2kanacode/26595034_s.jpg
-            //http://img76.pixiv.net/img/2a2kanacode/26595034_m.jpg
-            //http://img76.pixiv.net/img/2a2kanacode/26595034.jpg
+            //http://i1.pixiv.net/img-inf/img/2013/04/10/00/11/37/34912478_s.png
+            //http://i1.pixiv.net/img03/img/tukumo/34912478_m.png
+            //http://i1.pixiv.net/img03/img/tukumo/34912478.png
 
             Img img = new Img()
             {
@@ -208,10 +208,10 @@ namespace SitePack
                 //FileSize = file_size.ToUpper(),
                 //Desc = intId + " ",
                 Id = intId,
-                JpegUrl = fileUrl,
-                OriginalUrl = fileUrl,
+                //JpegUrl = fileUrl,
+                //OriginalUrl = fileUrl,
                 PreviewUrl = preview_url,
-                SampleUrl = sampleUrl,
+                //SampleUrl = sampleUrl,
                 //Score = 0,
                 //Width = width,
                 //Height = height,
@@ -237,6 +237,11 @@ namespace SitePack
                 i.Score = int.Parse(doc.DocumentNode.SelectSingleNode("//dd[@class='score-count']").InnerText);
                 //「カルタ＆わたぬき」/「えれっと」のイラスト [pixiv]
                 i.Desc += doc.DocumentNode.SelectSingleNode("//title").InnerText.Replace("のイラスト [pixiv]", "").Replace("の漫画 [pixiv]", "").Replace("「", "").Replace("」", "").Replace("/", "_");
+                //URLS
+                i.SampleUrl = doc.DocumentNode.SelectSingleNode("//div[@class='works_display']").SelectSingleNode(".//img").Attributes["src"].Value;
+                i.OriginalUrl = i.SampleUrl.Replace("_m.", "."); ;
+                i.JpegUrl = i.OriginalUrl;
+                
                 //600×800 or 漫画 6P
                 string dimension = doc.DocumentNode.SelectSingleNode("//ul[@class='meta']/li[2]").InnerText;
                 try
@@ -250,7 +255,7 @@ namespace SitePack
                 {
                     if (i.Width == 0 && i.Height == 0)
                     {
-                        i.OriginalUrl = i.PreviewUrl.Replace("_s.", "_p0.");
+                        i.OriginalUrl = i.SampleUrl.Replace("_m.", "_p0.");
                         i.JpegUrl = i.OriginalUrl;
                         //manga list
                         //漫画 6P
