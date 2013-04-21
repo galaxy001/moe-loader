@@ -492,6 +492,12 @@ namespace MoeLoader
         /// <returns>处理后的文件名</returns>
         public static string ReplaceInvalidPathChars(string file, char replace)
         {
+            if (file.IndexOf('?', file.LastIndexOf('.')) > 0)
+            {
+                //adfadsf.jpg?adfsdf   remove trailing ?param
+                file = file.Substring(0, file.IndexOf('?'));
+            }
+
             file = file.Replace('\\', replace);
             file = file.Replace('/', replace);
             file = file.Replace(':', replace);
