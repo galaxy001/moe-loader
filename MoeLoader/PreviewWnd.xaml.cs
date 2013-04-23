@@ -93,17 +93,18 @@ namespace MoeLoader
                 };
                 iiii.ImageFailed += new EventHandler<ExceptionRoutedEventArgs>(iiii_ImageFailed);
 
-                DownloadImg(img.Id, img.SampleUrl, needReferer);
-                imgGrid.Children.Add(new ScrollViewer() { 
-                    Content = iiii, 
+                imgGrid.Children.Add(new ScrollViewer()
+                {
+                    Content = iiii,
                     //Opacity = 0,
                     Visibility = System.Windows.Visibility.Hidden,
-                    HorizontalScrollBarVisibility = ScrollBarVisibility.Auto, 
+                    HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                     //VerticalAlignment = System.Windows.VerticalAlignment.Center,
                     //HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     //Margin = new Thickness(0)
                 });
+                DownloadImg(img.Id, img.SampleUrl, needReferer);
 
                 if (selectedId == 0)
                 {
@@ -124,20 +125,27 @@ namespace MoeLoader
         /// </summary>
         private void DownloadImg(int id, string url, string needReferer)
         {
-            System.Net.HttpWebRequest req = System.Net.WebRequest.Create(url) as System.Net.HttpWebRequest;
+            try
+            {
+                System.Net.HttpWebRequest req = System.Net.WebRequest.Create(url) as System.Net.HttpWebRequest;
 
-            reqs.Add(id, req);
-            req.Proxy = MainWindow.WebProxy;
+                reqs.Add(id, req);
+                req.Proxy = MainWindow.WebProxy;
 
-            req.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
-            if (needReferer != null)
-                //req.Referer = url.Substring(0, url.IndexOf('/', 7) + 1);
-                req.Referer = needReferer;
+                req.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
+                if (needReferer != null)
+                    //req.Referer = url.Substring(0, url.IndexOf('/', 7) + 1);
+                    req.Referer = needReferer;
 
-            req.AllowAutoRedirect = false;
+                req.AllowAutoRedirect = false;
 
-            //异步下载开始
-            req.BeginGetResponse(new AsyncCallback(RespCallback), new KeyValuePair<int, System.Net.HttpWebRequest>(id, req));
+                //异步下载开始
+                req.BeginGetResponse(new AsyncCallback(RespCallback), new KeyValuePair<int, System.Net.HttpWebRequest>(id, req));
+            }
+            catch
+            {
+                StopLoadImg(id);
+            }
         }
 
         /// <summary>
@@ -203,7 +211,7 @@ namespace MoeLoader
                         }
                         catch
                         {
-                            //Dispatcher.Invoke(new UIdelegate(delegate(object sender) { StopLoadImg(re.Key); }), "");
+                            Dispatcher.Invoke(new UIdelegate(delegate(object ss) { StopLoadImg(re.Key); }), "");
                         }
                     });
                     //iii.Source = im;
@@ -224,15 +232,18 @@ namespace MoeLoader
             //if (imgs[id] < imgGrid.Children.Count)
             try
             {
-                System.Net.HttpWebRequest req = reqs[id];
-                if (req != null)
-                    req.Abort();
+                if (reqs.ContainsKey(id))
+                {
+                    System.Net.HttpWebRequest req = reqs[id];
+                    if (req != null)
+                        req.Abort();
+                }
                 
                 Image img = (imgGrid.Children[imgs[id]] as ScrollViewer).Content as Image;
                 img.Stretch = Stretch.None;
                 img.Source = new BitmapImage(new Uri("/Images/pic.png", UriKind.Relative));
             }
-            catch
+            catch (Exception ex)
             {
                 //MessageBox.Show(this, "StopLoadImg Failed\r\nimgGrid Children Count: " + imgGrid.Children.Count + " id: " + id + " imgs[id]: " + imgs[id] + "\r\n" + ex, "Moe Loader", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
