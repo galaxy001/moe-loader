@@ -8,6 +8,17 @@ namespace MoeLoader
 {
     class Program
     {
+        public static bool is_debug = false;
+
+        static Program()
+        {
+            try
+            {
+                is_debug = System.IO.File.Exists(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\debug.txt");
+            }
+            catch { }
+        }
+
         /// <summary>
         /// Application Entry Point.
         /// </summary>
@@ -40,6 +51,18 @@ namespace MoeLoader
                 }
                 catch { }
             }
+        }
+
+        public static void Log(Exception e, string desc)
+        {
+            try
+            {
+                if (is_debug)
+                {
+                    System.IO.File.AppendAllText("moe_log.txt", DateTime.Now + " " + desc + ": " + e.ToString() + "\r\n");
+                }
+            }
+            catch { }
         }
     }
 }

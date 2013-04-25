@@ -142,16 +142,24 @@ namespace MoeLoader
             }
             else
             {
-                req = System.Net.WebRequest.Create(img.PreviewUrl) as System.Net.HttpWebRequest;
-                req.Proxy = MainWindow.WebProxy;
+                try
+                {
+                    req = System.Net.WebRequest.Create(img.PreviewUrl) as System.Net.HttpWebRequest;
+                    req.Proxy = MainWindow.WebProxy;
 
-                req.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
-                if (needReferer != null)
-                    //req.Referer = img.PreUrl.Substring(0, img.PreUrl.IndexOf('/', 7) + 1);
-                    req.Referer = needReferer;
+                    req.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
+                    if (needReferer != null)
+                        //req.Referer = img.PreUrl.Substring(0, img.PreUrl.IndexOf('/', 7) + 1);
+                        req.Referer = needReferer;
 
-                //异步下载开始
-                req.BeginGetResponse(new AsyncCallback(RespCallback), req);
+                    //异步下载开始
+                    req.BeginGetResponse(new AsyncCallback(RespCallback), req);
+                }
+                catch (Exception ex)
+                {
+                    Program.Log(ex, "Start download preview failed");
+                    StopLoadImg();
+                }
             }
 
             if (!isDetailSucc && img.DownloadDetail != null)
@@ -174,8 +182,9 @@ namespace MoeLoader
                                 ImgLoaded(index, null);
                         }));
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        Program.Log(ex, "Download img detail failed");
                         Dispatcher.Invoke(new VoidDel(() =>
                         {
                             isRetrievingDetail = false;
@@ -209,8 +218,9 @@ namespace MoeLoader
                     preview.Source = BitmapDecoder.Create(str, BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames[0];
                 }));
             }
-            catch (System.Net.WebException)
+            catch (Exception ex)
             {
+                Program.Log(ex, "Download preview failed");
                 Dispatcher.Invoke(new UIdelegate(delegate(object sender) { StopLoadImg(); }), "");
             }
         }
