@@ -142,8 +142,9 @@ namespace MoeLoader
                 //异步下载开始
                 req.BeginGetResponse(new AsyncCallback(RespCallback), new KeyValuePair<int, System.Net.HttpWebRequest>(id, req));
             }
-            catch
+            catch (Exception ex)
             {
+                Program.Log(ex, "Download sample failed");
                 StopLoadImg(id);
             }
         }
@@ -209,16 +210,18 @@ namespace MoeLoader
                             iii.Height = bd.Frames[0].PixelHeight;
                             iii.Stretch = Stretch.Uniform;
                         }
-                        catch
+                        catch (Exception ex1)
                         {
+                            Program.Log(ex1, "Read sample img failed");
                             Dispatcher.Invoke(new UIdelegate(delegate(object ss) { StopLoadImg(re.Key); }), "");
                         }
                     });
                     //iii.Source = im;
                 }), this);
             }
-            catch (Exception)
+            catch (Exception ex2)
             {
+                Program.Log(ex2, "Download sample failed");
                 Dispatcher.Invoke(new UIdelegate(delegate(object sender) { StopLoadImg(re.Key); }), "");
             }
         }
