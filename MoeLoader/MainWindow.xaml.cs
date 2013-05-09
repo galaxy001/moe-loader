@@ -170,7 +170,7 @@ namespace MoeLoader
                 if (iconStr != null)
                 {
                     BitmapImage ico = new BitmapImage();
-                    ico.CacheOption = BitmapCacheOption.OnLoad;
+                    ico.CacheOption = BitmapCacheOption.Default;
                     ico.BeginInit();
                     ico.StreamSource = site.IconStream;
                     ico.EndInit();
@@ -978,7 +978,7 @@ namespace MoeLoader
             System.Windows.Media.ImageSource imgS = null;
             Dispatcher.Invoke(new VoidDel(delegate
             {
-                imgS = BitmapDecoder.Create(str, BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames[0];
+                imgS = BitmapDecoder.Create(str, BitmapCreateOptions.IgnoreColorProfile, BitmapCacheOption.Default).Frames[0];
             }));
             return imgS;
         }

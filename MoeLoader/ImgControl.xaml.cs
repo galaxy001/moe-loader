@@ -215,7 +215,7 @@ namespace MoeLoader
 
                     //bmpFrame.DownloadCompleted += new EventHandler(bmpFrame_DownloadCompleted);
                     //preview.Source = bmpFrame;
-                    preview.Source = BitmapDecoder.Create(str, BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames[0];
+                    preview.Source = BitmapDecoder.Create(str, BitmapCreateOptions.IgnoreColorProfile, BitmapCacheOption.Default).Frames[0];
                 }));
             }
             catch (Exception ex)

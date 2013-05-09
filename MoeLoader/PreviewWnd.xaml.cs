@@ -165,7 +165,7 @@ namespace MoeLoader
                     System.IO.Stream str = res.GetResponseStream();
                     //Image iii = (imgGrid.Children[imgs[re.Key]] as Image);
                     //iii.Stretch = Stretch.Uniform;
-                    BitmapDecoder bd = BitmapDecoder.Create(str, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    BitmapDecoder bd = BitmapDecoder.Create(str, BitmapCreateOptions.IgnoreColorProfile, BitmapCacheOption.Default);
                     bd.Frames[0].DownloadCompleted += new EventHandler(delegate(object s, EventArgs ev)
                     {
                         try
