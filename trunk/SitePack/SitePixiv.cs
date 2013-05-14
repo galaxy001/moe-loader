@@ -134,7 +134,7 @@ namespace SitePack
             else if (srcType == PixivSrcType.Author)
                 nodes = doc.DocumentNode.SelectSingleNode("//div[@class='display_works linkStyleWorks']").SelectSingleNode("ul").SelectNodes("li");
             else //ranking
-                nodes = doc.DocumentNode.SelectSingleNode("//section[@class='articles autopagerize_page_element']").SelectNodes("article");
+                nodes = doc.DocumentNode.SelectSingleNode("//section[@class='ranking-items autopagerize_page_element']").SelectNodes("div");
 
             if (nodes == null)
             {
@@ -150,10 +150,10 @@ namespace SitePack
                     //eg. member_illust.php?mode=medium&illust_id=29561307&ref=rn-b-5-thumbnail
                     string detailUrl = anode.Attributes["href"].Value.Replace("amp;", "");
                     string previewUrl = null;
-                    if (srcType == PixivSrcType.Tag || srcType == PixivSrcType.Author)
-                        previewUrl = anode.SelectSingleNode(".//img").Attributes["src"].Value;
-                    else
-                        previewUrl = anode.SelectSingleNode(".//img").Attributes["data-src"].Value;
+                    //if (srcType == PixivSrcType.Tag || srcType == PixivSrcType.Author)
+                    previewUrl = anode.SelectSingleNode(".//img").Attributes["src"].Value;
+                    //else
+                        //previewUrl = anode.SelectSingleNode(".//img").Attributes["data-src"].Value;
 
                     if (previewUrl.Contains('?'))
                         previewUrl = previewUrl.Substring(0, previewUrl.IndexOf('?'));
