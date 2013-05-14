@@ -305,7 +305,8 @@ namespace SitePack
                     throw new Exception("自动登录失败");
                 }
                 //Set-Cookie: PHPSESSID=3af0737dc5d8a27f5504a7b8fe427286; expires=Tue, 15-May-2012 10:05:39 GMT; path=/; domain=.pixiv.net
-                cookie = cookie.Substring(0, cookie.IndexOf(';'));
+                int sessionIndex = cookie.LastIndexOf("PHPSESSID");
+                cookie = cookie.Substring(sessionIndex, cookie.IndexOf(';', sessionIndex) - sessionIndex);
                 rsp.Close();
             }
         }
