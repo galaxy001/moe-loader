@@ -446,7 +446,9 @@ namespace MoeLoader
                         {
                             try
                             {
-                                Size pos = Size.Parse(parts[9]);
+                                //Size pos = Size.Parse(parts[9]);
+                                var posItem = parts[9].Split(',');
+                                Size pos = new Size(int.Parse(posItem[0]), int.Parse(posItem[1]));
                                 if (pos.Width > MinWidth && pos.Height > MinHeight)
                                 {
                                     //rememberPos = true;
@@ -1037,7 +1039,7 @@ namespace MoeLoader
                         + (DownloadControl.SaveLocation == System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) ? "." : DownloadControl.SaveLocation)
                         + "\r\n" + addressType + ";" + (GlassHelper.noBlur ? "0" : "1")
                         + ";" + numOfLoading + ";" + (itmMaskViewed.IsChecked ? "1" : "0") + ";" + words + ";" + Proxy + ";" + BossKey + ";" + (itmSmallPre.IsChecked ? "1" : "0") + ";"
-                        + ProxyType + ";" + new Size(ActualWidth, ActualHeight) + ";" + (togglePram.IsChecked.Value ? "1" : "0") + ";" + PreFetcher.CachedImgCount + ";" 
+                        + ProxyType + ";" + (int)ActualWidth + "," + (int)ActualHeight + ";" + (togglePram.IsChecked.Value ? "1" : "0") + ";" + PreFetcher.CachedImgCount + ";" 
                         + (downloadC.IsSepSave ? "1" : "0") + ";" + (itmxExplicit.IsChecked ? "1" : "0") + ";" + namePatter+ ";" + num + ";" + bgSt + ";" + bgHe + ";" + bgVe + ";" + bgOp + "\r\n";
                     foreach (KeyValuePair<string, ViewedID> id in viewedIds)
                     {
