@@ -230,14 +230,14 @@ namespace MoeLoader
                     {
                         downloadItems[downloadItems.Count - numLeft].StatusE = DLStatus.Failed;
                         downloadItems[downloadItems.Count - numLeft].Size = "文件已存在";
-                        System.IO.File.AppendAllText(saveLocation + "\\moe_error.txt", url + ": 文件已存在\r\n");
+                        WriteErrText("moe_error.txt", url + ": 文件已存在");
                         j--;
                     }
                     else if (dest.Length > 259)
                     {
                         downloadItems[downloadItems.Count - numLeft].StatusE = DLStatus.Failed;
                         downloadItems[downloadItems.Count - numLeft].Size = "路径过长";
-                        System.IO.File.AppendAllText(saveLocation + "\\moe_error.txt", url + ": 路径过长\r\n");
+                        WriteErrText("moe_error.txt", url + ": 路径过长");
                         j--;
                     }
                     else
@@ -324,8 +324,8 @@ namespace MoeLoader
                     {
                         downloadItemsDic[task.Url].StatusE = DLStatus.Failed;
                         downloadItemsDic[task.Url].Size = "网络错误";
-                        System.IO.File.AppendAllText(saveLocation + "\\moe_error.txt", task.Url + ": " + ex.Message + "\r\n");
-                        System.IO.File.AppendAllText(saveLocation + "\\moe_error.lst", task.Url + "\r\n");
+                        WriteErrText("moe_error.txt", task.Url + ": " + ex.Message);
+                        WriteErrText("moe_error.lst", task.Url);
                     }
                 }));
             }
@@ -395,6 +395,15 @@ namespace MoeLoader
                 webs.Remove(task.Url);
                 RefreshList();
             }));
+        }
+
+        private void WriteErrText(string fileName, string content)
+        {
+            try
+            {
+                System.IO.File.AppendAllText(saveLocation + "\\" + fileName, content + "\r\n");
+            }
+            catch { }
         }
 
         /// <summary>
