@@ -455,5 +455,15 @@ namespace MoeLoader
             }
             catch (Exception) { }
         }
+
+        private void txtDetail_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (img.DetailUrl.Length > 0)
+                    System.Diagnostics.Process.Start(img.DetailUrl);
+            }
+            catch (Exception) { }
+        }
     }
 }

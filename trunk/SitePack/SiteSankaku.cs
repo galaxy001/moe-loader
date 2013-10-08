@@ -75,7 +75,7 @@ namespace SitePack
                 //eg. /post/show/1815296
                 string detailUrl = anode.Attributes["href"].Value;
                 string tags = imgN.Attributes["title"].Value;
-                tags = tags.Substring(0, tags.LastIndexOf("rating") - 1);
+                tags = tags.Substring(0, tags.LastIndexOf("rating", StringComparison.OrdinalIgnoreCase) - 1);
                 string previewUrl = imgN.Attributes["src"].Value;
 
                 //extract id from detail url
@@ -140,6 +140,7 @@ namespace SitePack
                 //SampleUrl = preview_url,
                 //Score = 0,
                 Tags = tags,
+                DetailUrl = detailUrl
             };
 
             img.DownloadDetail = (i, p) =>
@@ -148,7 +149,7 @@ namespace SitePack
                 MyWebClient web = new MyWebClient();
                 web.Proxy = p;
                 web.Encoding = Encoding.UTF8;
-                string page = web.DownloadString(detailUrl);
+                string page = web.DownloadString(i.DetailUrl);
 
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(page);

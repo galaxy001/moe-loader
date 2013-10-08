@@ -196,6 +196,7 @@ namespace SitePack
                 Height = height,
                 //Source = "",
                 Tags = tags,
+                DetailUrl = SiteUrl + "/" + id,
             };
             return img;
         }

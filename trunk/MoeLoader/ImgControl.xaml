@@ -134,6 +134,7 @@
                         <MenuItem Header="复制预览图地址(_P)" Click="txtDesc_Click_2" ToolTip="复制预览图地址至剪贴板"/>
                         <MenuItem Header="复制缩略图地址(_T)" Click="txtDesc_Click_3" ToolTip="复制缩略图地址至剪贴板"/>
                         <MenuItem Header="复制Tag(_D)" Click="txtDesc_Click_4" ToolTip="复制Tag至剪贴板"/>
+                        <MenuItem Header="打开详情页面(_X)" Click="txtDetail_Click" ToolTip="打开图片所在详情页面"/>
                     </ContextMenu>
                 </TextBlock.ContextMenu>
             </TextBlock>

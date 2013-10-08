@@ -244,7 +244,7 @@ namespace MoeLoader
                         score += obj["score"].ToString();
                 }
 
-                string host = url.Substring(0, url.IndexOf('/', 7));
+                string host = url.Substring(0, url.IndexOf('/', 8));
 
                 if (preview_url.StartsWith("/"))
                     preview_url = host + preview_url;
@@ -258,7 +258,7 @@ namespace MoeLoader
                 //if (!UseJpeg)
                 //jpeg_url = file_url;
 
-                Img img = GenerateImg(file_url, preview_url, width, height, sample, created_at, tags, file_size, id, score, jpeg_url, source);
+                Img img = GenerateImg(file_url, preview_url, width, height, sample, created_at, tags, file_size, id, score, jpeg_url, source, url);
                 if (img != null) imgs.Add(img);
                 #endregion
 
@@ -336,7 +336,7 @@ namespace MoeLoader
                         score += post.GetAttribute("score");
                 }
 
-                string host = url.Substring(0, url.IndexOf('/', 7));
+                string host = url.Substring(0, url.IndexOf('/', 8));
 
                 if (preview_url.StartsWith("/"))
                     preview_url = host + preview_url;
@@ -350,7 +350,7 @@ namespace MoeLoader
                 //if (!UseJpeg)
                     //jpeg_url = file_url;
 
-                Img img = GenerateImg(file_url, preview_url, width, height, sample, created_at, tags, file_size, id, score, jpeg_url, source);
+                Img img = GenerateImg(file_url, preview_url, width, height, sample, created_at, tags, file_size, id, score, jpeg_url, source, url);
                 if (img != null) imgs.Add(img);
             }
         }
@@ -417,7 +417,7 @@ namespace MoeLoader
                         score += obj["score"].ToString();
                 }
 
-                string host = url.Substring(0, url.IndexOf('/', 7));
+                string host = url.Substring(0, url.IndexOf('/', 8));
 
                 if (preview_url.StartsWith("/"))
                     preview_url = host + preview_url;
@@ -431,7 +431,7 @@ namespace MoeLoader
                 //if (!UseJpeg)
                     //jpeg_url = file_url;
 
-                Img img = GenerateImg(file_url, preview_url, width, height, sample, created_at, tags, file_size, id, score, jpeg_url, source);
+                Img img = GenerateImg(file_url, preview_url, width, height, sample, created_at, tags, file_size, id, score, jpeg_url, source, url);
                 if (img != null) imgs.Add(img);
             }
         }
@@ -449,7 +449,8 @@ namespace MoeLoader
         /// <param name="score"></param>
         /// <param name="jpeg_url"></param>
         /// <returns></returns>
-        private Img GenerateImg(string file_url, string preview_url, int width, int height, string sample, string created_at, string tags, int file_size, string id, string score, string jpeg_url, string src)
+        private Img GenerateImg(string file_url, string preview_url, int width, int height, string sample
+            , string created_at, string tags, int file_size, string id, string score, string jpeg_url, string src, string url)
         {
             int scoreInt = 0, intId = 0;
             try
@@ -486,6 +487,11 @@ namespace MoeLoader
             }
             #endregion
 
+            string host = url.Substring(0, url.IndexOf('/', 8));
+            string detailUrl = host + "/post/show/" + id;
+            if (url.Contains("index.php"))
+                detailUrl = host + "/index.php?page=post&s=view&id=" + id;
+
             Img img = new Img()
             {
                 Date = created_at,
@@ -501,7 +507,8 @@ namespace MoeLoader
                 Score = scoreInt,
                 Source = src,
                 Tags = tags,
-                Width = width
+                Width = width,
+                DetailUrl = detailUrl
             };
             return img;
         }

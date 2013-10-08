@@ -52,6 +52,8 @@ namespace SitePack
                 HtmlNode node2 = node.SelectSingleNode("a");
                 HtmlNode node3 = node2.SelectSingleNode("img");
 
+                string detailUrl = SiteUrl + node2.Attributes["href"].Value;
+
                 Img item = new Img()
                 {
                     Desc = node.Attributes["data-tags"].Value,
@@ -61,11 +63,13 @@ namespace SitePack
                     Tags = node.Attributes["data-tags"].Value,
                     Width = Convert.ToInt32(node.Attributes["data-width"].Value),
                     PreviewUrl = this.SiteUrl + node3.Attributes["src"].Value,
+                    DetailUrl = detailUrl
                 };
 
+                
                 item.DownloadDetail = (i, p) =>
                 {
-                    string html = new MyWebClient { Proxy = p, Encoding = Encoding.UTF8 }.DownloadString(this.SiteUrl + node2.Attributes["href"].Value);
+                    string html = new MyWebClient { Proxy = p, Encoding = Encoding.UTF8 }.DownloadString(i.DetailUrl);
                     HtmlDocument doc = new HtmlDocument();
                     doc.LoadHtml(html);
                     HtmlNodeCollection sectionNodes = doc.DocumentNode.SelectNodes("//section");

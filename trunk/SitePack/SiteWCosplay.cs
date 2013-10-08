@@ -71,7 +71,7 @@ namespace SitePack
                 Dictionary<string, object> photo = tag["photo"] as Dictionary<string, object>;
 
                 Img re = GenerateImg(photo["thumbnail_url_display"].ToString(), chara["name"].ToString(), member["global_name"].ToString(), photo["thumbnail_width"].ToString()
-                    , photo["thumbnail_height"].ToString(), photo["created_at"].ToString(), photo["good_cnt"].ToString(), photo["id"].ToString());
+                    , photo["thumbnail_height"].ToString(), photo["created_at"].ToString(), photo["good_cnt"].ToString(), photo["id"].ToString(), photo["url"].ToString());
                 imgs.Add(re);
             }
 
@@ -84,7 +84,7 @@ namespace SitePack
         //    return re;
         //}
 
-        private Img GenerateImg(string preview_url, string chara, string member, string twidth, string theight, string date, string sscore, string id)
+        private Img GenerateImg(string preview_url, string chara, string member, string twidth, string theight, string date, string sscore, string id, string detailUrl)
         {
             int intId = int.Parse(id);
             int score;
@@ -131,6 +131,7 @@ namespace SitePack
                 Width = width,
                 Height = height,
                 Tags = member + " | " + chara,
+                DetailUrl = detailUrl
             };
 
             return img;

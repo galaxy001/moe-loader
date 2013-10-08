@@ -80,6 +80,7 @@
                     <MenuItem Header="复制预览图地址(_P)" Click="MenuItem_Click_1" ToolTip="复制预览图地址至剪贴板"/>
                     <MenuItem Header="复制来源(_R)" Click="MenuItem_Click_3" ToolTip="复制来源至剪贴板"/>
                     <MenuItem Header="复制描述(_D)" Click="MenuItem_Click_4" ToolTip="复制描述至剪贴板"/>
+                    <MenuItem Header="打开详情页面(_T)" Click="MenuItem_Click_5" ToolTip="打开图片所在详情页面"/>
                 </ContextMenu>
             </Grid.ContextMenu>
         </Grid>

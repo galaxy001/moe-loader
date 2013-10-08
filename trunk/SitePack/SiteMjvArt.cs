@@ -168,6 +168,7 @@ namespace SitePack
                 Width = width,
                 Height = height,
                 Tags = tags,
+                DetailUrl = detailUrl,
             };
 
             img.DownloadDetail = new DetailHandler((i, p) =>
@@ -177,7 +178,7 @@ namespace SitePack
                 web.Proxy = p;
                 web.Headers["Cookie"] = sessionId;
                 web.Encoding = Encoding.UTF8;
-                string page = web.DownloadString(detailUrl);
+                string page = web.DownloadString(i.DetailUrl);
 
                 //<b>Size:</b> 326.0KB<br>
                 int index = page.IndexOf("<b>Size");

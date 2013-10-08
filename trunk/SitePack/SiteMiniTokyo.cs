@@ -148,8 +148,8 @@ namespace SitePack
                 HtmlNode imgNode = imgNodes[i];
                 HtmlNode descNode = desNodes[i];
 
-                string id = imgNode.SelectSingleNode("a").Attributes["href"].Value;
-                id = id.Substring(id.LastIndexOf('/') + 1);
+                string detailUrl = imgNode.SelectSingleNode("a").Attributes["href"].Value;
+                string id = detailUrl.Substring(detailUrl.LastIndexOf('/') + 1);
                 HtmlNode imgHref = imgNode.SelectSingleNode(".//img");
                 string previewUrl = imgHref.Attributes["src"].Value;
                 //http://static2.minitokyo.net/thumbs/24/25/583774.jpg preview
@@ -176,7 +176,7 @@ namespace SitePack
                 if (descNode != null)
                     tags = descNode.InnerText.Substring("Tags:".Length).Trim().Replace("\r", "").Replace("\n", "").Replace("\t", "");
 
-                Img img = GenerateImg(fileUrl, previewUrl, title, tags, sampleUrl, score, id);
+                Img img = GenerateImg(fileUrl, previewUrl, title, tags, sampleUrl, score, id, detailUrl);
                 if (img != null) imgs.Add(img);
                 //}
                 //catch (Exception ex)
@@ -188,7 +188,7 @@ namespace SitePack
             return imgs;
         }
 
-        private Img GenerateImg(string file_url, string preview_url, string dimension, string tags, string sample_url, string scorestr, string id)
+        private Img GenerateImg(string file_url, string preview_url, string dimension, string tags, string sample_url, string scorestr, string id, string detailUrl)
         {
             int intId = int.Parse(id);
 
@@ -219,6 +219,7 @@ namespace SitePack
                 Height = height,
                 //Source = "",
                 Tags = tags,
+                DetailUrl = detailUrl
             };
             return img;
         }
