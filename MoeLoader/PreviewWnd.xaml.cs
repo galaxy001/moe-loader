@@ -543,5 +543,15 @@ namespace MoeLoader
             }
             catch (Exception) { }
         }
+
+        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (descs[selectedId].DetailUrl.Length > 0)
+                    System.Diagnostics.Process.Start(descs[selectedId].DetailUrl);
+            }
+            catch (Exception) { }
+        }
     }
 }

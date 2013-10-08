@@ -216,6 +216,7 @@ namespace SitePack
                 //Width = width,
                 //Height = height,
                 //Tags = tags,
+                DetailUrl = detailUrl
             };
 
             img.DownloadDetail = new DetailHandler((i, p) =>
@@ -226,7 +227,7 @@ namespace SitePack
                 web.Encoding = Encoding.UTF8;
                 web.Headers["Cookie"] = cookie;
                 web.Headers["Referer"] = Referer;
-                string page = web.DownloadString(detailUrl);
+                string page = web.DownloadString(i.DetailUrl);
 
                 HtmlDocument doc = new HtmlDocument();
                 doc.LoadHtml(page);

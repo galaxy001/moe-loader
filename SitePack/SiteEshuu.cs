@@ -230,6 +230,7 @@ namespace SitePack
                 Width = width,
                 Height = height,
                 Tags = tags.Replace("\t", "").Replace("\n", ""),
+                DetailUrl = SiteUrl + "/image/" + intId,
             };
             return img;
         }

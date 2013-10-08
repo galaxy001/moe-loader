@@ -114,6 +114,11 @@ namespace MoeLoader
         public bool IsExplicit { get; set; }
 
         /// <summary>
+        /// 图片详情页地址
+        /// </summary>
+        public string DetailUrl { get; set; }
+
+        /// <summary>
         /// 若图片的某些信息需要单独获取（例如原图URL可能位于第二层页面），则实现该接口，将网络操作、提取信息操作置于此处
         /// </summary>
         public DetailHandler DownloadDetail;
@@ -139,6 +144,7 @@ namespace MoeLoader
             this.Tags = "";
             this.Width = 0;
             this.OrignalUrlList = new List<string>();
+            this.DetailUrl = "";
         }
     }
 }
