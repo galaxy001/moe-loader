@@ -137,7 +137,7 @@ namespace MoeLoader
                     //req.Referer = url.Substring(0, url.IndexOf('/', 7) + 1);
                     req.Referer = needReferer;
 
-                req.AllowAutoRedirect = false;
+                req.AllowAutoRedirect = true;
 
                 //异步下载开始
                 req.BeginGetResponse(new AsyncCallback(RespCallback), new KeyValuePair<int, System.Net.HttpWebRequest>(id, req));

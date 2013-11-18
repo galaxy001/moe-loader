@@ -152,10 +152,10 @@ namespace SitePack
                     //eg. member_illust.php?mode=medium&illust_id=29561307&ref=rn-b-5-thumbnail
                     string detailUrl = anode.Attributes["href"].Value.Replace("amp;", "");
                     string previewUrl = null;
-                    //if (srcType == PixivSrcType.Tag || srcType == PixivSrcType.Author)
-                    previewUrl = anode.SelectSingleNode(".//img").Attributes["src"].Value;
-                    //else
-                        //previewUrl = anode.SelectSingleNode(".//img").Attributes["data-src"].Value;
+                    if (srcType == PixivSrcType.Tag || srcType == PixivSrcType.Author)
+                        previewUrl = anode.SelectSingleNode(".//img").Attributes["src"].Value;
+                    else
+                        previewUrl = anode.SelectSingleNode(".//img").Attributes["data-src"].Value;
 
                     if (previewUrl.Contains('?'))
                         previewUrl = previewUrl.Substring(0, previewUrl.IndexOf('?'));
