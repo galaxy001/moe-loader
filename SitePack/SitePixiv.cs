@@ -283,7 +283,7 @@ namespace SitePack
         {
             if (cookie == null)
             {
-                System.Net.HttpWebRequest req = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(SiteUrl + "/login.php");
+                System.Net.HttpWebRequest req = (System.Net.HttpWebRequest)System.Net.WebRequest.Create("https://www.secure.pixiv.net/login.php");
                 req.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
                 req.Proxy = proxy;
                 req.Timeout = 8000;
