@@ -304,7 +304,7 @@ namespace SitePack
 
                 //HTTP 302然后返回实际地址
                 cookie = rsp.Headers.Get("Set-Cookie");
-                if (rsp.Headers.Get("Location") == null || cookie == null)
+                if (/*rsp.Headers.Get("Location") == null ||*/ cookie == null)
                 {
                     throw new Exception("自动登录失败");
                 }
