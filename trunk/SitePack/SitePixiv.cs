@@ -132,11 +132,16 @@ namespace SitePack
                 //nodes = nodes[nodes.Count - 1].SelectNodes("li");
             }
             else if (srcType == PixivSrcType.Author)
-                nodes = doc.DocumentNode.SelectSingleNode("//div[@class='display_works linkStyleWorks']").SelectSingleNode("ul").SelectNodes("li");
+            {
+                nodes = doc.DocumentNode.SelectSingleNode("//div[@class='display_works linkStyleWorks ']").SelectSingleNode("ul").SelectNodes("li");
+            }
             //else if (srcType == PixivSrcType.Day || srcType == PixivSrcType.Month || srcType == PixivSrcType.Week) //ranking
-                //nodes = doc.DocumentNode.SelectSingleNode("//section[@class='ranking-items autopagerize_page_element']").SelectNodes("div");
-            else //ranking
+            //nodes = doc.DocumentNode.SelectSingleNode("//section[@class='ranking-items autopagerize_page_element']").SelectNodes("div");
+            else
+            {
+                //ranking
                 nodes = doc.DocumentNode.SelectNodes("//section[@class='ranking-item']");
+            }
 
             if (nodes == null)
             {
