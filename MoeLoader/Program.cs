@@ -32,6 +32,7 @@ namespace MoeLoader
                 //{
                 System.Net.ServicePointManager.DefaultConnectionLimit = 100;
                 System.Net.ServicePointManager.Expect100Continue = false;
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 //}
                 //catch { }
                 SplashScreen splashScreen = new SplashScreen("images/slash.png");
