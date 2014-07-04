@@ -57,7 +57,7 @@ namespace SitePack
         //public override System.Drawing.Point SmallImgSize { get { return new System.Drawing.Point(150, 150); } }
 
         private string cookie = null;
-        private string[] user = { "moe1user", "moe2user" };
+        private string[] user = { "moe1user", "moe3user" };
         private string[] pass = { "630489372", "1515817701" };
         private Random rand = new Random();
         private PixivSrcType srcType = PixivSrcType.Tag;
