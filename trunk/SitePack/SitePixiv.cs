@@ -128,7 +128,7 @@ namespace SitePack
             HtmlNodeCollection nodes = null;
             if (srcType == PixivSrcType.Tag)
             {
-                nodes = doc.DocumentNode.SelectSingleNode("//ul[@class='image-items autopagerize_page_element']").SelectNodes("li");
+                nodes = doc.DocumentNode.SelectSingleNode("//ul[@class='_image-items autopagerize_page_element']").SelectNodes("li");
                 //nodes = nodes[nodes.Count - 1].SelectNodes("li");
             }
             else if (srcType == PixivSrcType.Author)
