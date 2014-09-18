@@ -21,7 +21,7 @@ namespace SitePack
         }
         public override bool IsSupportCount //fixed 20
         {
-            get { return false; }
+            get { return true; }
         }
         public override string Referer { get { return "http://" + sitePrefix + ".sankakucomplex.com/post/show/12345"; } }
 
@@ -36,7 +36,7 @@ namespace SitePack
         public override string GetPageString(int page, int count, string keyWord, System.Net.IWebProxy proxy)
         {
             //http://chan.sankakucomplex.com/post/index.content?page=2&limit=3&tags=xxx
-            string url = SiteUrl + "/post/index.content?page=" + page + "&limit=30";
+            string url = SiteUrl + "/post/index.content?page=" + page + "&limit=" + count;
 
             MyWebClient web = new MyWebClient();
             web.Proxy = proxy;
@@ -125,8 +125,15 @@ namespace SitePack
             //convert relative url to absolute
             if (detailUrl.StartsWith("/"))
                 detailUrl = SiteUrl + detailUrl;
-            if (preview_url.StartsWith("/"))
+
+            if (preview_url.StartsWith("//"))
+            {
+                preview_url = "http:" + preview_url;
+            }
+            else if (preview_url.StartsWith("/"))
+            {
                 preview_url = SiteUrl + preview_url;
+            }
 
             Img img = new Img()
             {
