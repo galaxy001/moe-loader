@@ -66,7 +66,7 @@ namespace SitePack
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(pageString);
             //retrieve all elements via xpath
-            HtmlNodeCollection nodes = doc.DocumentNode.SelectSingleNode("//div[@id='posts']").SelectNodes(".//span");
+            HtmlNodeCollection nodes = doc.DocumentNode.SelectSingleNode("//div[@id='posts']").SelectNodes(".//span[@class='img_block_big']");
             if (nodes == null)
             {
                 return imgs;
@@ -86,8 +86,13 @@ namespace SitePack
                 string id = System.Text.RegularExpressions.Regex.Match(detailUrl.Substring(detailUrl.LastIndexOf('/') + 1), @"\d+").Value;
                 int index = System.Text.RegularExpressions.Regex.Match(title, @"\d+").Index;
 
-                string dimension = title.Substring(index, title.IndexOf(' ', index) - index);
-                string tags = title.Substring(title.IndexOf(' ', index) + 1);
+                string dimension = title.Substring(index);
+                string tags = "";
+                //if (title.IndexOf(' ', index) > -1)
+                //{
+                    //dimension = title.Substring(index, title.IndexOf(' ', index) - index);
+                    //tags = title.Substring(title.IndexOf(' ', index) + 1);
+                //}
 
                 Img img = GenerateImg(detailUrl, previewUrl, dimension, tags.Trim(), id);
                 if (img != null) imgs.Add(img);
@@ -158,7 +163,7 @@ namespace SitePack
             {
                 //Date = "N/A",
                 //FileSize = file_size.ToUpper(),
-                Desc = tags,
+                //Desc = tags,
                 Id = intId,
                 //JpegUrl = preview_url,
                 //OriginalUrl = preview_url,
@@ -167,7 +172,7 @@ namespace SitePack
                 //Score = 0,
                 Width = width,
                 Height = height,
-                Tags = tags,
+                //Tags = tags,
                 DetailUrl = detailUrl,
             };
 
@@ -193,6 +198,9 @@ namespace SitePack
                 HtmlNode node = doc.DocumentNode.SelectSingleNode("//div[@id='big_preview_cont']").SelectSingleNode("a");
                 string fileUrl = node.Attributes["href"].Value;
                 string sampleUrl = node.SelectSingleNode("img").Attributes["src"].Value;
+                i.Tags = doc.DocumentNode.SelectSingleNode("//meta[@name='description']").Attributes["content"].Value;
+                i.Tags = i.Tags.Replace('\n', ' ').Replace("\t", "");
+                i.Desc = i.Tags;
 
                 if (fileUrl.StartsWith("/"))
                     fileUrl = SiteUrl + fileUrl;

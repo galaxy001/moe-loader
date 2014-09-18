@@ -32,8 +32,8 @@ namespace SitePack
         public override System.Drawing.Point LargeImgSize { get { return new System.Drawing.Point(180, 180); } }
         public override System.Drawing.Point SmallImgSize { get { return new System.Drawing.Point(180, 180); } }
 
-        private string[] user = { "miniuser1" };
-        private string[] pass = { "minipass" };
+        private string[] user = { "miniuser2", "miniuser3" };
+        private string[] pass = { "minipass", "minipass3" };
         private Random rand = new Random();
         //scans wallpapers
         private string type;
@@ -132,21 +132,17 @@ namespace SitePack
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(pageString);
             //retrieve all elements via xpath
-            HtmlNode wallNode = doc.DocumentNode.SelectSingleNode("//dl[@class='wallpapers']");
-            HtmlNodeCollection imgNodes = wallNode.SelectNodes(".//dt");
-            HtmlNodeCollection desNodes = wallNode.SelectNodes(".//dd");
-            if (imgNodes == null || desNodes == null || desNodes.Count != imgNodes.Count)
+            HtmlNode wallNode = doc.DocumentNode.SelectSingleNode("//ul[@class='wallpapers']");
+            HtmlNodeCollection imgNodes = wallNode.SelectNodes(".//li");
+            if (imgNodes == null)
             {
                 return imgs;
             }
 
             for (int i = 0; i < imgNodes.Count - 1; i++)
             {
-                //try
-                //{
                 //最后一个是空的，跳过
                 HtmlNode imgNode = imgNodes[i];
-                HtmlNode descNode = desNodes[i];
 
                 string detailUrl = imgNode.SelectSingleNode("a").Attributes["href"].Value;
                 string id = detailUrl.Substring(detailUrl.LastIndexOf('/') + 1);
@@ -157,33 +153,22 @@ namespace SitePack
                 //http://static.minitokyo.net/downloads/24/25/583774.jpg   full
                 string sampleUrl = "http://static2.minitokyo.net/view" + previewUrl.Substring(previewUrl.IndexOf('/', previewUrl.IndexOf(".net/") + 5));
                 string fileUrl = "http://static.minitokyo.net/downloads" + previewUrl.Substring(previewUrl.IndexOf('/', previewUrl.IndexOf(".net/") + 5));
-                //1092x1575, 1920x1080, 6 Favorites
-                string title = descNode.SelectSingleNode(".//p[@class='description'][2]").InnerText;
+                //Hana Nanaroba - Hana Nanaroba
+                //Submitted by YuuichiYouko 1804x2693, 2 Favorites
+                string title = imgNode.SelectSingleNode(".//div").InnerText;
+                title = title.Replace('\t', ' ').Replace("\n", "");
+                string tags = title.Substring(0, title.IndexOf("Submitted") - 1).Trim();
                 int favIndex = title.LastIndexOf(',') + 1;
                 string score = title.Substring(favIndex, title.LastIndexOf(' ') - favIndex).Trim();
                 title = title.Substring(0, favIndex - 1);
                 favIndex = title.LastIndexOf(' ');
                 if (favIndex > 0)
                 {
-                    //multiple dimension available, use largest one
                     title = title.Substring(favIndex + 1);
-                    fileUrl = fileUrl.Insert(fileUrl.LastIndexOf('.'), "-" + title);
                 }
-
-                //tags may be null
-                descNode = descNode.SelectSingleNode(".//p[@class='description'][3]");
-                string tags = "";
-                if (descNode != null)
-                    tags = descNode.InnerText.Substring("Tags:".Length).Trim().Replace("\r", "").Replace("\n", "").Replace("\t", "");
 
                 Img img = GenerateImg(fileUrl, previewUrl, title, tags, sampleUrl, score, id, detailUrl);
                 if (img != null) imgs.Add(img);
-                //}
-                //catch (Exception ex)
-                //{
-                //    string a = imgNodes[i].SelectSingleNode("a").Attributes["href"].Value;
-                //    int x = 1;
-                //}
             }
             return imgs;
         }
