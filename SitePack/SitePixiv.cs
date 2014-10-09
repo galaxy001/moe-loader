@@ -100,15 +100,15 @@ namespace SitePack
             }
             else if (srcType == PixivSrcType.Day)
             {
-                url = SiteUrl + "/ranking.php?mode=day&p=" + page;
+                url = SiteUrl + "/ranking.php?mode=daily&p=" + page;
             }
             else if (srcType == PixivSrcType.Week)
             {
-                url = SiteUrl + "/ranking.php?mode=week&p=" + page;
+                url = SiteUrl + "/ranking.php?mode=weekly&p=" + page;
             }
             else if (srcType == PixivSrcType.Month)
             {
-                url = SiteUrl + "/ranking.php?mode=month&p=" + page;
+                url = SiteUrl + "/ranking.php?mode=monthly&p=" + page;
             }
 
             string pageString = web.DownloadString(url);
@@ -133,7 +133,7 @@ namespace SitePack
             }
             else if (srcType == PixivSrcType.Author)
             {
-                nodes = doc.DocumentNode.SelectSingleNode("//div[@class='display_works linkStyleWorks ']").SelectSingleNode("ul").SelectNodes("li");
+                nodes = doc.DocumentNode.SelectSingleNode("//ul[@class='_image-items']").SelectNodes("li");
             }
             //else if (srcType == PixivSrcType.Day || srcType == PixivSrcType.Month || srcType == PixivSrcType.Week) //ranking
             //nodes = doc.DocumentNode.SelectSingleNode("//section[@class='ranking-items autopagerize_page_element']").SelectNodes("div");
@@ -153,6 +153,10 @@ namespace SitePack
                 try
                 {
                     HtmlNode anode = imgNode.SelectSingleNode("a");
+                    if (srcType == PixivSrcType.Day || srcType == PixivSrcType.Month || srcType == PixivSrcType.Week)
+                    {
+                        anode = imgNode.SelectSingleNode(".//div[@class='ranking-image-item']").SelectSingleNode("a");
+                    }
                     //details will be extracted from here
                     //eg. member_illust.php?mode=medium&illust_id=29561307&ref=rn-b-5-thumbnail
                     string detailUrl = anode.Attributes["href"].Value.Replace("amp;", "");
@@ -246,8 +250,10 @@ namespace SitePack
                 //「カルタ＆わたぬき」/「えれっと」のイラスト [pixiv]
                 i.Desc += doc.DocumentNode.SelectSingleNode("//title").InnerText.Replace("のイラスト [pixiv]", "").Replace("の漫画 [pixiv]", "").Replace("「", "").Replace("」", "").Replace("/", "_");
                 //URLS
+                //http://i2.pixiv.net/c/600x600/img-master/img/2014/10/08/06/13/30/46422743_p0_master1200.jpg
+                //http://i2.pixiv.net/img-original/img/2014/10/08/06/13/30/46422743_p0.png
                 i.SampleUrl = doc.DocumentNode.SelectSingleNode("//div[@class='works_display']").SelectSingleNode(".//img").Attributes["src"].Value;
-                i.OriginalUrl = i.SampleUrl.Replace("_m.", "."); ;
+                i.OriginalUrl = i.SampleUrl.Replace("600x600", "1200x1200");
                 i.JpegUrl = i.OriginalUrl;
                 
                 //600×800 or 漫画 6P
@@ -263,7 +269,7 @@ namespace SitePack
                 {
                     if (i.Width == 0 && i.Height == 0)
                     {
-                        i.OriginalUrl = i.SampleUrl.Replace("_m.", "_p0.");
+                        //i.OriginalUrl = i.SampleUrl.Replace("600x600", "1200x1200");
                         i.JpegUrl = i.OriginalUrl;
                         //manga list
                         //漫画 6P
