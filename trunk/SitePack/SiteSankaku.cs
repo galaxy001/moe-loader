@@ -118,6 +118,19 @@ namespace SitePack
             return re;
         }
 
+        private string FixUrl(string url)
+        {
+            if (url.StartsWith("//"))
+            {
+                url = "http:" + url;
+            }
+            else if (url.StartsWith("/"))
+            {
+                url = SiteUrl + url;
+            }
+            return url;
+        }
+
         private Img GenerateImg(string detailUrl, string preview_url, string tags, string id)
         {
             int intId = int.Parse(id);
@@ -126,14 +139,7 @@ namespace SitePack
             if (detailUrl.StartsWith("/"))
                 detailUrl = SiteUrl + detailUrl;
 
-            if (preview_url.StartsWith("//"))
-            {
-                preview_url = "http:" + preview_url;
-            }
-            else if (preview_url.StartsWith("/"))
-            {
-                preview_url = SiteUrl + preview_url;
-            }
+            preview_url = FixUrl(preview_url);
 
             Img img = new Img()
             {
@@ -171,10 +177,12 @@ namespace SitePack
                     else if (node.InnerText.Contains("Resized"))
                     {
                         i.SampleUrl = node.SelectSingleNode("a").Attributes["href"].Value;
+                        i.SampleUrl = FixUrl(i.SampleUrl);
                     }
                     else if (node.InnerText.Contains("Original"))
                     {
                         i.OriginalUrl = node.SelectSingleNode("a").Attributes["href"].Value;
+                        i.OriginalUrl = FixUrl(i.OriginalUrl);
                         i.JpegUrl = i.OriginalUrl;
                         //1368x1000 (197.4 KB)
                         string size = node.SelectSingleNode("a").InnerText;
