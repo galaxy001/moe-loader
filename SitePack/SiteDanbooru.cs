@@ -17,7 +17,7 @@ namespace SitePack
         public override string SiteName { get { return "danbooru.donmai.us"; } }
         public override string ShortName { get { return "donmai"; } }
 
-        public virtual bool IsSupportTag { get { return false; } }
+        public override bool IsSupportTag { get { return false; } }
 
         public override string GetPageString(int page, int count, string keyWord, System.Net.IWebProxy proxy)
         {
