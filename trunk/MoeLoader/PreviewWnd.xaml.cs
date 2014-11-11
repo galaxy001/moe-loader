@@ -85,24 +85,46 @@ namespace MoeLoader
 
                 Image iiii = new Image()
                 {
-                    //Opacity = 0,
-                    //Width = 80,
-                    //Height = 122,
-                    //Stretch = System.Windows.Media.Stretch.None,
                     Source = new BitmapImage(new Uri("/Images/loading.png", UriKind.Relative))
                 };
+                iiii.MouseLeftButtonUp += new MouseButtonEventHandler(delegate(object s1, MouseButtonEventArgs ea)
+                {
+                    preMX = 0; preMY = 0;
+                });
+                iiii.MouseLeftButtonDown += new MouseButtonEventHandler(delegate(object s1, MouseButtonEventArgs ea)
+                {
+                    preMX = 0; preMY = 0;
+                });
+                iiii.MouseDown += new MouseButtonEventHandler(delegate(object s1, MouseButtonEventArgs ea)
+                {
+                    if (ea.MiddleButton == MouseButtonState.Pressed)
+                        Button_Click_2(null, null);
+                });
+                iiii.MouseMove += new MouseEventHandler(delegate(object s1, MouseEventArgs ea)
+                {
+                    //拖动
+                    if (ea.LeftButton == MouseButtonState.Pressed)
+                    {
+                        if (preMY != 0 && preMX != 0)
+                        {
+                            int offX = (int)(ea.GetPosition(LayoutRoot).X) - preMX;
+                            int offY = (int)(ea.GetPosition(LayoutRoot).Y) - preMY;
+                            ScrollViewer sc = (imgGrid.Children[imgs[selectedId]] as ScrollViewer);
+                            sc.ScrollToHorizontalOffset(sc.HorizontalOffset - offX);
+                            sc.ScrollToVerticalOffset(sc.VerticalOffset - offY);
+                        }
+                        preMX = (int)(ea.GetPosition(LayoutRoot).X);
+                        preMY = (int)(ea.GetPosition(LayoutRoot).Y);
+                    }
+                });
                 iiii.ImageFailed += new EventHandler<ExceptionRoutedEventArgs>(iiii_ImageFailed);
 
                 imgGrid.Children.Add(new ScrollViewer()
                 {
                     Content = iiii,
-                    //Opacity = 0,
                     Visibility = System.Windows.Visibility.Hidden,
                     HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                    //VerticalAlignment = System.Windows.VerticalAlignment.Center,
-                    //HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                    //Margin = new Thickness(0)
                 });
                 DownloadImg(img.Id, img.SampleUrl, needReferer);
 
@@ -149,6 +171,23 @@ namespace MoeLoader
             }
         }
 
+        private void AssignImg(BitmapDecoder bd, Image i, int key)
+        {
+            try
+            {
+                //下载完毕后再显示
+                i.Source = bd.Frames[0];
+                i.Width = bd.Frames[0].PixelWidth;
+                i.Height = bd.Frames[0].PixelHeight;
+                i.Stretch = Stretch.Uniform;
+            }
+            catch (Exception ex1)
+            {
+                Program.Log(ex1, "Read sample img failed");
+                Dispatcher.Invoke(new UIdelegate(delegate(object ss) { StopLoadImg(key); }), "");
+            }
+        }
+
         /// <summary>
         /// 异步下载结束
         /// </summary>
@@ -158,65 +197,18 @@ namespace MoeLoader
             KeyValuePair<int, System.Net.HttpWebRequest> re = (KeyValuePair<int, System.Net.HttpWebRequest>)(req.AsyncState);
             try
             {
-                System.Net.WebResponse res = re.Value.EndGetResponse(req);
-
                 Dispatcher.Invoke(new UIdelegate(delegate(object sender)
                 {
+                    System.Net.WebResponse res = re.Value.EndGetResponse(req);
                     System.IO.Stream str = res.GetResponseStream();
-                    //Image iii = (imgGrid.Children[imgs[re.Key]] as Image);
-                    //iii.Stretch = Stretch.Uniform;
+                    Image iii = (imgGrid.Children[imgs[re.Key]] as ScrollViewer).Content as Image;
                     BitmapDecoder bd = BitmapDecoder.Create(str, BitmapCreateOptions.IgnoreColorProfile, BitmapCacheOption.Default);
                     bd.Frames[0].DownloadCompleted += new EventHandler(delegate(object s, EventArgs ev)
                     {
-                        try
-                        {
-                            //下载完毕后再显示
-                            Image iii = (imgGrid.Children[imgs[re.Key]] as ScrollViewer).Content as Image;
-                            //iii.Stretch = Stretch.None;
-
-                            iii.MouseLeftButtonUp += new MouseButtonEventHandler(delegate(object s1, MouseButtonEventArgs ea)
-                            {
-                                preMX = 0; preMY = 0;
-                            });
-                            iii.MouseLeftButtonDown += new MouseButtonEventHandler(delegate(object s1, MouseButtonEventArgs ea)
-                            {
-                                preMX = 0; preMY = 0;
-                            });
-                            iii.MouseDown += new MouseButtonEventHandler(delegate(object s1, MouseButtonEventArgs ea) {
-                                if (ea.MiddleButton == MouseButtonState.Pressed)
-                                    Button_Click_2(null, null);
-                            });
-                            iii.MouseMove += new MouseEventHandler(delegate(object s1, MouseEventArgs ea)
-                            {
-                                //拖动
-                                if (ea.LeftButton == MouseButtonState.Pressed)
-                                {
-                                    if (preMY != 0 && preMX != 0)
-                                    {
-                                        int offX = (int)(ea.GetPosition(LayoutRoot).X) - preMX;
-                                        int offY = (int)(ea.GetPosition(LayoutRoot).Y) - preMY;
-                                        //FrameworkElement im = s1 as Image;
-                                        ScrollViewer sc = (imgGrid.Children[imgs[selectedId]] as ScrollViewer);
-                                        //im.Margin = new Thickness(im.Margin.Left + offX, im.Margin.Top + offY, im.Margin.Right - offX, im.Margin.Bottom - offY);
-                                        sc.ScrollToHorizontalOffset(sc.HorizontalOffset - offX);
-                                        sc.ScrollToVerticalOffset(sc.VerticalOffset - offY);
-                                    }
-                                    preMX = (int)(ea.GetPosition(LayoutRoot).X);
-                                    preMY = (int)(ea.GetPosition(LayoutRoot).Y);
-                                }
-                            });
-                            iii.Source = bd.Frames[0];
-                            iii.Width = bd.Frames[0].PixelWidth;
-                            iii.Height = bd.Frames[0].PixelHeight;
-                            iii.Stretch = Stretch.Uniform;
-                        }
-                        catch (Exception ex1)
-                        {
-                            Program.Log(ex1, "Read sample img failed");
-                            Dispatcher.Invoke(new UIdelegate(delegate(object ss) { StopLoadImg(re.Key); }), "");
-                        }
+                        AssignImg(bd, iii, re.Key);
                     });
-                    //iii.Source = im;
+                    //防止DownloadCompleted没有被调用 in .Net 4.0
+                    AssignImg(bd, iii, re.Key);
                 }), this);
             }
             catch (Exception ex2)
