@@ -625,7 +625,7 @@
                     <Grid x:Name="imgListGrid" Margin="0,36,0,39">
                         <Border x:Name="imgBorder" BorderBrush="#4C000000" BorderThickness="0" CornerRadius="0" Background="#8FFFFFFF" Margin="0">
                             <Grid x:Name="imgLstBg">
-                                <ScrollViewer x:Name="scrList" Margin="0,1,0,1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" ScrollChanged="scrList_ScrollChanged">
+                                <ScrollViewer x:Name="scrList" Margin="0,1,0,1" PanningMode="VerticalOnly" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" ScrollChanged="scrList_ScrollChanged">
                                     <ScrollViewer.ContextMenu>
                                         <ContextMenu MinWidth="160">
                                             <MenuItem x:Name="itmSelectAll" Header="全选(_A)" IsEnabled="False" Click="itmSelectAll_Click"/>

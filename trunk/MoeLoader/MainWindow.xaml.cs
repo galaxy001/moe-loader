@@ -402,7 +402,7 @@ namespace MoeLoader
 
                         if (parts[1] == "1")
                         {
-                            GlassHelper.noBlur = false;
+                            //GlassHelper.noBlur = false;
                         }
 
                         if (parts.Length > 2)
