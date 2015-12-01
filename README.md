@@ -25,7 +25,7 @@ MoeLoader官网: http://moeloader.sinaapp.com/
 
 PS. 关于MoeLoader接口中的AbstractImageSite、Img类详细使用信息，请参考MoeLoader源代码中的注释；
 
-PS2. 若希望将自定义的站点加入MoeLoader正式版本中，请(与我联系)[https://github.com/esonic]
+PS2. 若希望将自定义的站点加入MoeLoader正式版本中，请[与我联系](https://github.com/esonic)
 
 下载自定义站点示例项目： https://code.google.com/p/moe-loader-v7/downloads/detail?name=SitePackSample.7z
 
