@@ -253,7 +253,8 @@ namespace SitePack
                 //http://i2.pixiv.net/c/600x600/img-master/img/2014/10/08/06/13/30/46422743_p0_master1200.jpg
                 //http://i2.pixiv.net/img-original/img/2014/10/08/06/13/30/46422743_p0.png
                 i.SampleUrl = doc.DocumentNode.SelectSingleNode("//div[@class='works_display']").SelectSingleNode(".//img").Attributes["src"].Value;
-                i.OriginalUrl = i.SampleUrl.Replace("600x600", "1200x1200");
+                i.OriginalUrl = doc.DocumentNode.SelectSingleNode("//div[@class='_illust_modal _hidden ui-modal-close-box']").SelectSingleNode(".//img").Attributes["data-src"].Value;
+                //i.OriginalUrl = i.SampleUrl.Replace("p0_master1200", "p0");
                 i.JpegUrl = i.OriginalUrl;
                 
                 //600×800 or 漫画 6P
