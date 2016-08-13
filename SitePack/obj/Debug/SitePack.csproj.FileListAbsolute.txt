@@ -1,0 +1,5 @@
+D:\Blog\others\moe-loader\MoeLoader\bin\Debug\SitePack.dll
+D:\Blog\others\moe-loader\MoeLoader\bin\Debug\SitePack.pdb
+D:\Blog\others\moe-loader\SitePack\obj\Debug\SitePack.csprojResolveAssemblyReference.cache
+D:\Blog\others\moe-loader\SitePack\obj\Debug\SitePack.dll
+D:\Blog\others\moe-loader\SitePack\obj\Debug\SitePack.pdb
