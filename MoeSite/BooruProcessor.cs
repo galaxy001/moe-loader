@@ -13,6 +13,30 @@ namespace MoeLoader
     /// </summary>
     public class BooruProcessor
     {
+        public static void FixImageUrl(string host, ref string url)
+        {
+            if (url.StartsWith("http:"))
+            {
+                return;
+            }
+            if (url.StartsWith("//"))
+            {
+                url = "http:" + url;
+                return;
+            }
+            if (url.StartsWith("/"))
+            {
+                url = host + url;
+                return;
+            }
+            string pattern = @"^([\w\d\-]+\.)+[\w\d\-]+\/"; // find domain like : eed98--d.ddk.fdf/
+            if (Regex.IsMatch(url, pattern))
+            {
+                url = "http://" + url;
+                return;
+            }
+            // for other unknown case, do nothing
+        }
         //private int mask = -1;
         //private int maskRes = -1;
         //private bool maskViewed = false;
@@ -338,14 +362,12 @@ namespace MoeLoader
 
                 string host = url.Substring(0, url.IndexOf('/', 8));
 
-                if (preview_url.StartsWith("/"))
-                    preview_url = host + preview_url;
-                if (file_url.StartsWith("/"))
-                    file_url = host + file_url;
-                if (sample.StartsWith("/"))
-                    sample = host + sample;
-                if (jpeg_url.StartsWith("/"))
-                    jpeg_url = host + jpeg_url;
+
+
+                FixImageUrl(host, ref preview_url);
+                FixImageUrl(host, ref file_url);
+                FixImageUrl(host, ref sample);
+                FixImageUrl(host, ref jpeg_url);
 
                 //if (!UseJpeg)
                     //jpeg_url = file_url;
